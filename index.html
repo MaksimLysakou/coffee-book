@@ -30,10 +30,8 @@
   .fig-fill{height:244mm;}
   /* миниатюра у пункта таймлайна: текст обтекает рамку */
   .tl-fig{float:right;width:48mm;margin:2px 0 10px 14px;}
-  /* фото в карточке кофейни: фиксированная высота, чтобы две карточки помещались на лист */
-  .card .figure{height:58mm;width:auto;margin:10px auto 2px;}
-  /* на стр. 14 кроме карточек стоит вступление главы — фото там компактнее */
-  .cards-tight .figure{height:32mm;}
+  /* фото в карточке (межвоенные заведения, стр. 9): фиксированная высота */
+  .card .figure{height:42mm;width:auto;margin:10px auto 2px;}
   /* спецификация иллюстрации (описание, размер, промпт) — заметка на полях */
   .fnote{position:absolute;left:100%;margin-left:26px;width:240px;box-sizing:border-box;background:#f6efdd;border:1px dashed #b3935f;color:#5d5443;font-size:11.5px;line-height:1.4;padding:8px 10px;border-radius:3px;}
   .fnote .flabel{font-family:'Courier New',monospace;font-size:10.5px;letter-spacing:.1em;color:#7a5a2e;margin-bottom:6px;font-weight:bold;}
@@ -59,7 +57,6 @@
   .timeline li{margin:0 0 16px;padding-left:14px;border-left:2px solid #d8c9a8;}
   .timeline .tdate{font-weight:bold;color:#8c5a2b;display:block;font-size:15px;}
   .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
-  .cards.cards-stack{grid-template-columns:1fr;}
   .card{border:1px solid #d8c9a8;background:#fffdf4;padding:14px 16px;}
   .card p{font-size:14px;margin:0 0 6px;}
   .route{list-style:none;padding:0;}
@@ -320,7 +317,7 @@
   <p>Сам Тизенгауз закончил плохо. Реформы надорвались, недруги при дворе добились отставки, и в 1785 году он умер вдали от своих фабрик. Его дворец на шестьдесят комнат — там, где сейчас парк Жилибера, — сгорел в Первую мировую. А привычка к кофе осталась. Похоже, это самый живучий из его проектов.</p>
 
   <div class="insight"><span class="ilabel">Кстати</span>
-  Характер у реформатора был тяжёлый: горожане звали Тизенгауза дьяволом — на его мануфактурах работали по четырнадцать часов, включая женщин и детей. История кофе вообще редко бывает уютной; мы ещё вспомним об этом на странице 18.</div>
+  Характер у реформатора был тяжёлый: горожане звали Тизенгауза дьяволом — на его мануфактурах работали по четырнадцать часов, включая женщин и детей. История кофе вообще редко бывает уютной; мы ещё вспомним об этом на странице 24.</div>
   <div class="pagenum">— стр. 7 —</div>
 </div>
 
@@ -459,7 +456,7 @@
     <li><span class="rnum">2</span><b>Главный корпус ГрГУ им. Янки Купалы.</b> Считается, что первая кофейня города стояла на этом самом месте. Сегодня здесь учат студентов — кофеин, как видите, по-прежнему в деле.</li>
     <li><span class="rnum">3</span><b>Парк Жилибера.</b> Тут стоял дворец Тизенгауза на шестьдесят комнат, сгоревший в Первую мировую. Пройдите парк насквозь: это бывший ботанический сад той самой медицинской школы.</li>
     <li><span class="rnum">4</span><b>Улица Советская (бывшая Доминиканская).</b> Главная кофейная улица межвоенного города: <span class="check">где-то здесь стояли столики Котовского и «Стамбула»<span class="todo">✎ адреса уточняем — см. главу 4</span></span>. Идите медленно и смотрите на вторые этажи — лепнина помнит больше нас.</li>
-    <li><span class="rnum">5</span><b>Советская площадь.</b> Мостик в современность: кофе здесь снова наливают каждый день. Отсюда начинается маршрут по сегодняшним кофейням — страницы 14–17.</li>
+    <li><span class="rnum">5</span><b>Советская площадь.</b> Мостик в современность: кофе здесь снова наливают каждый день. Отсюда начинается маршрут по сегодняшним кофейням — страницы 14–23.</li>
     <li><span class="rnum">6</span><b>Фарный костёл.</b> Внутри — памятник Тизенгаузу, заказанный его племянницей. Зайдите сказать спасибо человеку, который привёз сюда кофе.</li>
     <li><span class="rnum">7</span><b>Финиш: берег Немана у Старого замка.</b> Возьмите кофе с собой и посмотрите на реку, по которой в город веками приходили товары со всего света. Зерно когда-то было одним из них.</li>
   </ol>
@@ -487,110 +484,146 @@
   <h2>Кофе сегодня: новая волна</h2>
 
   <p class="lead">Перемотаем в наши дни.</p>
-  <p>У третьей кофейной волны в городе свои герои: маленькие обжарщики, воронки и фильтр, каппинги по выходным — и бариста, которые знают постоянных гостей по именам. Дальше — карта современного гродненского кофе. Мы не составляем рейтингов и не продаём страницы: о каждом месте — только то, что можно проверить собственным языком.</p>
+  <p>У третьей кофейной волны в городе свои герои: маленькие обжарщики, воронки и фильтр, каппинги по выходным — и бариста, которые знают постоянных гостей по именам. На соседней странице — карта современного гродненского кофе, а дальше у каждой кофейни есть собственная страница.</p>
+
+  <div class="figure" style="aspect-ratio:3/2;height:94mm;margin-left:auto;margin-right:auto"><span class="fnum">ФОТО · СОВРЕМЕННАЯ КОФЕЙНЯ</span></div>
+
+  <p>Мы не составляем рейтингов и не продаём страницы: о каждом месте — только то, что можно проверить собственным языком. И порядок страниц ничего не значит — загляните во все: в конце книги вас ждёт страница для штампов.</p>
+
+  <div class="insight"><span class="ilabel">Что такое «третья волна»</span>
+  Первая волна сделала кофе товаром: банка растворимого в каждой кухне. Вторая — напитком: эспрессо-бары и большие сети. Третья относится к кофе как к ремеслу: происхождение зерна, светлая обжарка, точный рецепт — и бариста, который расскажет, что у вас в чашке.</div>
 
   <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ · БЛОК В РАБОТЕ</span>
-  Карточки ниже — каркас. Список кофеен, факты и фото согласуем отдельно (анкета для заведений — отдельным документом). Фото здесь настоящие, генерацию не используем. На каждую страницу — две карточки, итого 8 заведений на 4 страницы; если мест больше — расширяем главу.</div>
-
-  <div class="cards cards-stack cards-tight">
-    <div class="card">
-      <h3>Кофейня 1</h3>
-      <p><b>Год открытия:</b> —</p>
-      <p><b>Адрес:</b> —</p>
-      <p><b>Фишка:</b> —</p>
-      <p><b>Один факт:</b> —</p>
-      <p><b>Что взять в первый раз:</b> —</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
-    </div>
-    <div class="card">
-      <h3>Кофейня 2</h3>
-      <p><b>Год открытия:</b> —</p>
-      <p><b>Адрес:</b> —</p>
-      <p><b>Фишка:</b> —</p>
-      <p><b>Один факт:</b> —</p>
-      <p><b>Что взять в первый раз:</b> —</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
-    </div>
-  </div>
+  Страницы кофеен — каркас. Список заведений, факты и фото согласуем отдельно (анкета — отдельным документом). Фото настоящие, генерацию не используем. Каждой кофейне — отдельная страница (стр. 16–23); если заведений станет больше восьми, добавляем страницы парами, чтобы не сломать развороты.</div>
   <div class="pagenum">— стр. 14 —</div>
 </div>
 
-<!-- ===================== СТР. 15 ===================== -->
+<!-- ===================== СТР. 15 · КАРТА КОФЕЕН ===================== -->
 <div class="page">
-  <div class="cards cards-stack">
-    <div class="card">
-      <h3>Кофейня 3</h3>
-      <p><b>Год открытия:</b> —</p>
-      <p><b>Адрес:</b> —</p>
-      <p><b>Фишка:</b> —</p>
-      <p><b>Один факт:</b> —</p>
-      <p><b>Что взять в первый раз:</b> —</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
-    </div>
-    <div class="card">
-      <h3>Кофейня 4</h3>
-      <p><b>Год открытия:</b> —</p>
-      <p><b>Адрес:</b> —</p>
-      <p><b>Фишка:</b> —</p>
-      <p><b>Один факт:</b> —</p>
-      <p><b>Что взять в первый раз:</b> —</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
-    </div>
+  <div class="figure fig-fill">
+    <span class="fnum">ИЛЛ. 14 · КАРТА КОФЕЕН</span>
+    <aside class="fnote">
+    <div class="flabel">🖼 ИЛЛ. 14 · КАРТА СОВРЕМЕННЫХ КОФЕЕН</div>
+    <p class="fmeta"><b>Как делаем:</b> так же, как карту маршрута (ИЛЛ. 13): нейросеть карту не рисует. Дизайнер берёт ту же стилизованную схему улиц и ставит на неё номера кофеен вёрсткой; декоративный картуш и розу ветров переиспользуем.</p>
+    <p class="fmeta"><b>Размер и место:</b> на всю страницу 15, лицом к вступлению главы. Номера точек — те же, что на страницах кофеен (1–8).</p>
+    </aside>
   </div>
   <div class="pagenum">— стр. 15 —</div>
 </div>
 
-<!-- ===================== СТР. 16 ===================== -->
+<!-- ===================== СТР. 16 · КОФЕЙНЯ 1 ===================== -->
 <div class="page">
-  <div class="cards cards-stack">
-    <div class="card">
-      <h3>Кофейня 5</h3>
-      <p><b>Год открытия:</b> —</p>
-      <p><b>Адрес:</b> —</p>
-      <p><b>Фишка:</b> —</p>
-      <p><b>Один факт:</b> —</p>
-      <p><b>Что взять в первый раз:</b> —</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
-    </div>
-    <div class="card">
-      <h3>Кофейня 6</h3>
-      <p><b>Год открытия:</b> —</p>
-      <p><b>Адрес:</b> —</p>
-      <p><b>Фишка:</b> —</p>
-      <p><b>Один факт:</b> —</p>
-      <p><b>Что взять в первый раз:</b> —</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
-    </div>
-  </div>
+  <p class="kicker">Кофе сегодня · 1 из 8</p>
+  <h2>Кофейня 1</h2>
+  <div class="figure" style="aspect-ratio:3/2;height:100mm;margin-left:auto;margin-right:auto"><span class="fnum">ФОТО · ЗАЛ</span></div>
+  <div class="figure fig-right" style="aspect-ratio:1/1;width:48mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <p><b>Год открытия:</b> —</p>
+  <p><b>Адрес:</b> —</p>
+  <p><b>Один факт:</b> —</p>
+  <p><b>Что взять в первый раз:</b> —</p>
+  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> —</div>
   <div class="pagenum">— стр. 16 —</div>
 </div>
 
-<!-- ===================== СТР. 17 ===================== -->
+<!-- ===================== СТР. 17 · КОФЕЙНЯ 2 ===================== -->
 <div class="page">
-  <div class="cards cards-stack">
-    <div class="card">
-      <h3>Кофейня 7</h3>
-      <p><b>Год открытия:</b> —</p>
-      <p><b>Адрес:</b> —</p>
-      <p><b>Фишка:</b> —</p>
-      <p><b>Один факт:</b> —</p>
-      <p><b>Что взять в первый раз:</b> —</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
-    </div>
-    <div class="card">
-      <h3>Кофейня 8</h3>
-      <p><b>Год открытия:</b> —</p>
-      <p><b>Адрес:</b> —</p>
-      <p><b>Фишка:</b> —</p>
-      <p><b>Один факт:</b> —</p>
-      <p><b>Что взять в первый раз:</b> —</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
-    </div>
-  </div>
+  <p class="kicker">Кофе сегодня · 2 из 8</p>
+  <h2>Кофейня 2</h2>
+  <div class="figure" style="aspect-ratio:3/2;height:100mm;margin-left:auto;margin-right:auto"><span class="fnum">ФОТО · ЗАЛ</span></div>
+  <div class="figure fig-right" style="aspect-ratio:1/1;width:48mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <p><b>Год открытия:</b> —</p>
+  <p><b>Адрес:</b> —</p>
+  <p><b>Один факт:</b> —</p>
+  <p><b>Что взять в первый раз:</b> —</p>
+  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> —</div>
   <div class="pagenum">— стр. 17 —</div>
 </div>
 
-<!-- ===================== СТР. 18 ===================== -->
+<!-- ===================== СТР. 18 · КОФЕЙНЯ 3 ===================== -->
+<div class="page">
+  <p class="kicker">Кофе сегодня · 3 из 8</p>
+  <h2>Кофейня 3</h2>
+  <div class="figure" style="aspect-ratio:3/2;height:100mm;margin-left:auto;margin-right:auto"><span class="fnum">ФОТО · ЗАЛ</span></div>
+  <div class="figure fig-right" style="aspect-ratio:1/1;width:48mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <p><b>Год открытия:</b> —</p>
+  <p><b>Адрес:</b> —</p>
+  <p><b>Один факт:</b> —</p>
+  <p><b>Что взять в первый раз:</b> —</p>
+  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> —</div>
+  <div class="pagenum">— стр. 18 —</div>
+</div>
+
+<!-- ===================== СТР. 19 · КОФЕЙНЯ 4 ===================== -->
+<div class="page">
+  <p class="kicker">Кофе сегодня · 4 из 8</p>
+  <h2>Кофейня 4</h2>
+  <div class="figure" style="aspect-ratio:3/2;height:100mm;margin-left:auto;margin-right:auto"><span class="fnum">ФОТО · ЗАЛ</span></div>
+  <div class="figure fig-right" style="aspect-ratio:1/1;width:48mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <p><b>Год открытия:</b> —</p>
+  <p><b>Адрес:</b> —</p>
+  <p><b>Один факт:</b> —</p>
+  <p><b>Что взять в первый раз:</b> —</p>
+  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> —</div>
+  <div class="pagenum">— стр. 19 —</div>
+</div>
+
+<!-- ===================== СТР. 20 · КОФЕЙНЯ 5 ===================== -->
+<div class="page">
+  <p class="kicker">Кофе сегодня · 5 из 8</p>
+  <h2>Кофейня 5</h2>
+  <div class="figure" style="aspect-ratio:3/2;height:100mm;margin-left:auto;margin-right:auto"><span class="fnum">ФОТО · ЗАЛ</span></div>
+  <div class="figure fig-right" style="aspect-ratio:1/1;width:48mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <p><b>Год открытия:</b> —</p>
+  <p><b>Адрес:</b> —</p>
+  <p><b>Один факт:</b> —</p>
+  <p><b>Что взять в первый раз:</b> —</p>
+  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> —</div>
+  <div class="pagenum">— стр. 20 —</div>
+</div>
+
+<!-- ===================== СТР. 21 · КОФЕЙНЯ 6 ===================== -->
+<div class="page">
+  <p class="kicker">Кофе сегодня · 6 из 8</p>
+  <h2>Кофейня 6</h2>
+  <div class="figure" style="aspect-ratio:3/2;height:100mm;margin-left:auto;margin-right:auto"><span class="fnum">ФОТО · ЗАЛ</span></div>
+  <div class="figure fig-right" style="aspect-ratio:1/1;width:48mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <p><b>Год открытия:</b> —</p>
+  <p><b>Адрес:</b> —</p>
+  <p><b>Один факт:</b> —</p>
+  <p><b>Что взять в первый раз:</b> —</p>
+  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> —</div>
+  <div class="pagenum">— стр. 21 —</div>
+</div>
+
+<!-- ===================== СТР. 22 · КОФЕЙНЯ 7 ===================== -->
+<div class="page">
+  <p class="kicker">Кофе сегодня · 7 из 8</p>
+  <h2>Кофейня 7</h2>
+  <div class="figure" style="aspect-ratio:3/2;height:100mm;margin-left:auto;margin-right:auto"><span class="fnum">ФОТО · ЗАЛ</span></div>
+  <div class="figure fig-right" style="aspect-ratio:1/1;width:48mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <p><b>Год открытия:</b> —</p>
+  <p><b>Адрес:</b> —</p>
+  <p><b>Один факт:</b> —</p>
+  <p><b>Что взять в первый раз:</b> —</p>
+  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> —</div>
+  <div class="pagenum">— стр. 22 —</div>
+</div>
+
+<!-- ===================== СТР. 23 · КОФЕЙНЯ 8 ===================== -->
+<div class="page">
+  <p class="kicker">Кофе сегодня · 8 из 8</p>
+  <h2>Кофейня 8</h2>
+  <div class="figure" style="aspect-ratio:3/2;height:100mm;margin-left:auto;margin-right:auto"><span class="fnum">ФОТО · ЗАЛ</span></div>
+  <div class="figure fig-right" style="aspect-ratio:1/1;width:48mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <p><b>Год открытия:</b> —</p>
+  <p><b>Адрес:</b> —</p>
+  <p><b>Один факт:</b> —</p>
+  <p><b>Что взять в первый раз:</b> —</p>
+  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> —</div>
+  <div class="pagenum">— стр. 23 —</div>
+</div>
+
+<!-- ===================== СТР. 24 ===================== -->
 <div class="page">
   <p class="kicker">Глава девятая</p>
   <h2>Почему ваша чашка дорожает</h2>
@@ -608,18 +641,18 @@
   <p>Что это значит для нас, на этом берегу Немана? Кофе перестаёт быть дешёвой привычкой и снова становится тем, чем был при Тизенгаузе, — маленькой роскошью. Хорошая новость в том, что роскошь — это не цена, а внимание. Пейте вдумчиво.</p>
 
   <div class="figure" style="aspect-ratio:1/1;height:72mm;margin-left:auto;margin-right:auto">
-    <span class="fnum">ИЛЛ. 14</span>
+    <span class="fnum">ИЛЛ. 15</span>
     <aside class="fnote">
-    <div class="flabel">🖼 ИЛЛ. 14 · ВИНЬЕТКА ГЛАВЫ</div>
+    <div class="flabel">🖼 ИЛЛ. 15 · ВИНЬЕТКА ГЛАВЫ</div>
     <p class="fmeta"><b>Что изображено:</b> ботаническая зарисовка ветки кофе, где половина ягод спелые, половина — высохшие; сдержанный, чуть тревожный вариант виньетки со стр. 1.</p>
     <p class="fmeta"><b>Размер и место:</b> небольшой квадрат 1:1 (~800×800 px), рядом с блоком цифр.</p>
     <div class="prompt">A botanical study of a coffee plant branch where half of the cherries are ripe and plump and the other half are dried and shriveled, some leaves curling at the edges, antique botanical engraving style, fine cross-hatching, sepia ink on aged cream paper, isolated object with empty space around, no text, no letters, no frame, no watermark. Square 1:1 composition.</div>
     </aside>
   </div>
-  <div class="pagenum">— стр. 18 —</div>
+  <div class="pagenum">— стр. 24 —</div>
 </div>
 
-<!-- ===================== СТР. 19 ===================== -->
+<!-- ===================== СТР. 25 ===================== -->
 <div class="page">
   <p class="kicker">Интерактив</p>
   <h2>Кофейный паспорт</h2>
@@ -647,10 +680,10 @@
     <li>☐ Сказал спасибо Тизенгаузу в Фарном костёле</li>
     <li>☐ Выпил кофе с видом на Неман</li>
   </ul>
-  <div class="pagenum">— стр. 19 —</div>
+  <div class="pagenum">— стр. 25 —</div>
 </div>
 
-<!-- ===================== СТР. 20 ===================== -->
+<!-- ===================== СТР. 26 ===================== -->
 <div class="page">
   <p class="kicker">Колофон</p>
   <h2>Это черновик — помогите его улучшить</h2>
@@ -666,9 +699,9 @@
   <p><span class="check"><b>Благодарности:</b> —<span class="todo">✎ список благодарностей собрать к версии 1.0</span></span></p>
 
   <div class="figure fig-small" style="aspect-ratio:1/1">
-    <span class="fnum">ИЛЛ. 15</span>
+    <span class="fnum">ИЛЛ. 16</span>
     <aside class="fnote">
-    <div class="flabel">🖼 ИЛЛ. 15 · ФИНАЛЬНАЯ ВИНЬЕТКА + МЕСТО ПОД QR</div>
+    <div class="flabel">🖼 ИЛЛ. 16 · ФИНАЛЬНАЯ ВИНЬЕТКА + МЕСТО ПОД QR</div>
     <p class="fmeta"><b>Что изображено:</b> маленькая чашка кофе на блюдце, вид сверху, лёгкий пар; точка в конце книги. Рядом вёрсткой ставим QR-код (электронная версия книги + карта маршрута).</p>
     <p class="fmeta"><b>Размер и место:</b> квадрат 1:1 (~700×700 px), по центру внизу страницы.</p>
     <div class="prompt">A small cup of coffee on a saucer seen from directly above, a gentle wisp of steam, antique copper engraving style, fine cross-hatching, sepia ink on aged cream paper, isolated object with generous empty space around, no text, no letters, no frame, no watermark. Square 1:1 composition.</div>
@@ -676,14 +709,14 @@
   </div>
 
   <p style="font-size:13px;color:#9b8a6b;">«Кофе в Городе» · черновик v0.1 · набрано за столиком, пока несли капучино · тираж, типография, год — позже</p>
-  <div class="pagenum">— стр. 20 —</div>
+  <div class="pagenum">— стр. 26 —</div>
 </div>
 
-<!-- ===================== СТР. 21 · ОБЛОЖКА, ЗАДНЯЯ ===================== -->
+<!-- ===================== СТР. 27 · ОБЛОЖКА, ЗАДНЯЯ ===================== -->
 <div class="page">
   <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ · ОБЛОЖКА</span>
   Задняя обложка. Пока пустая — сюда придёт картинка; позже также: короткая аннотация, QR на электронную версию и выходные данные.</div>
-  <div class="pagenum">— стр. 21 —</div>
+  <div class="pagenum">— стр. 27 —</div>
 </div>
 
 <script>
