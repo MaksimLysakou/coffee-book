@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Кофе в Городе — черновик v0.1</title>
 <style>
+  :root{--z:.72;} /* масштаб книги в развороте; поднимается на широких экранах */
   body{background:#e7decb;color:#2a2118;font-family:Georgia,'Times New Roman',serif;line-height:1.55;margin:0;padding:24px 12px 80px;}
   .draft-banner{max-width:210mm;box-sizing:border-box;margin:0 auto 30px;background:#2a2118;color:#f1e8d6;padding:16px 22px;font-family:'Courier New',monospace;font-size:13px;border-radius:4px;}
   .draft-banner b{color:#ffd98a;}
@@ -18,18 +19,33 @@
   p{margin:0 0 14px;font-size:16.5px;}
   .lead{font-size:18px;}
   .orn{text-align:center;color:#8c5a2b;letter-spacing:.5em;margin:24px 0;}
-  .figure{border:2px dashed #b3935f;background:#f1e7cf;padding:16px 18px;margin:20px 0;border-radius:3px;}
-  .figure .flabel{font-family:'Courier New',monospace;font-size:12px;letter-spacing:.12em;color:#7a5a2e;margin-bottom:8px;font-weight:bold;}
-  .figure .fmeta{font-size:14px;margin:0 0 6px;}
-  .prompt{font-family:'Courier New',monospace;font-size:12.5px;background:#fffdf6;border:1px solid #d8c9a8;padding:10px 12px;margin-top:8px;white-space:pre-wrap;color:#3c3225;}
+  /* на странице — только пустая рамка-заглушка нужной пропорции; спецификация — на полях */
+  .figure{border:2px dashed #b3935f;background:#f1e7cf;margin:20px 0;border-radius:3px;display:flex;align-items:center;justify-content:center;}
+  .fnum{font-family:'Courier New',monospace;font-size:12px;letter-spacing:.14em;color:#a98a55;}
+  .fig-right{width:42%;margin-left:auto;}
+  .fig-small{width:50%;margin-left:auto;margin-right:auto;}
+  .fig-fill{flex:1;min-height:60mm;}
+  /* фото в карточке кофейни: фиксированная высота, чтобы две карточки помещались на лист */
+  .card .figure{height:45mm;width:auto;margin:10px auto 2px;}
+  /* на стр. 14 кроме карточек стоит вступление главы — фото там компактнее */
+  .cards-tight .figure{height:32mm;}
+  /* спецификация иллюстрации (описание, размер, промпт) — заметка на полях */
+  .fnote{position:absolute;left:100%;margin-left:26px;width:240px;box-sizing:border-box;background:#f6efdd;border:1px dashed #b3935f;color:#5d5443;font-size:11.5px;line-height:1.4;padding:8px 10px;border-radius:3px;}
+  .fnote .flabel{font-family:'Courier New',monospace;font-size:10.5px;letter-spacing:.1em;color:#7a5a2e;margin-bottom:6px;font-weight:bold;}
+  .fnote .fmeta{font-size:11.5px;margin:0 0 6px;}
+  .prompt{font-family:'Courier New',monospace;font-size:10px;background:#fffdf6;border:1px solid #d8c9a8;padding:6px 8px;margin-top:6px;white-space:pre-wrap;color:#3c3225;line-height:1.35;}
   .insight{border-left:4px solid #8c5a2b;background:#f3ecd9;padding:12px 16px;margin:18px 0;font-size:15px;}
   .insight .ilabel{letter-spacing:.2em;color:#8c5a2b;font-size:11px;display:block;margin-bottom:4px;text-transform:uppercase;}
-  .todo{background:#ffe08a;padding:0 4px;border-radius:2px;font-size:.92em;}
-  /* заметки редакции — выносятся на правое поле, полосу набора не занимают */
-  .ednote{position:absolute;left:100%;margin-left:26px;width:230px;box-sizing:border-box;background:#eee9df;border:1px solid #d3c9b4;border-left:3px solid #b3a589;color:#5d5443;font-size:12.5px;line-height:1.45;padding:8px 12px;}
+  /* ✎-пометки выносятся на поля; внутри заметок на полях остаются инлайн */
+  .todo{position:absolute;left:100%;margin-left:26px;width:240px;box-sizing:border-box;background:#ffe08a;border-radius:2px;font-size:11.5px;line-height:1.4;padding:5px 9px;}
+  .ednote .todo,.fnote .todo{position:static;width:auto;margin:0;padding:0 3px;font-size:inherit;line-height:inherit;}
+  /* заметки редакции — выносятся на поле, полосу набора не занимают */
+  .ednote{position:absolute;left:100%;margin-left:26px;width:240px;box-sizing:border-box;background:#eee9df;border:1px solid #d3c9b4;border-left:3px solid #b3a589;color:#5d5443;font-size:12.5px;line-height:1.45;padding:8px 12px;}
   .ednote .elabel{font-family:'Courier New',monospace;font-size:10.5px;letter-spacing:.15em;display:block;margin-bottom:4px;}
-  @media (max-width:1320px){
-    .ednote{position:static;width:auto;margin:18px 0;font-size:13.5px;padding:10px 14px;}
+  /* узкий экран: для полей нет места — все заметки в потоке */
+  @media (max-width:1080px){
+    .ednote,.fnote{position:static;width:auto;margin:18px 0;font-size:13px;padding:10px 14px;}
+    .todo{position:static;width:auto;margin:0;padding:0 4px;font-size:.92em;line-height:inherit;}
   }
   .timeline{margin:0;padding:0;list-style:none;}
   .timeline li{margin:0 0 16px;padding-left:14px;border-left:2px solid #d8c9a8;}
@@ -54,34 +70,32 @@
   /* разворот: на широких экранах страницы идут парами, как открытая книга —
      нечётные страницы справа, чётные слева; стр. 1 — одна, справа */
   @media (min-width:1680px){
-    body{display:grid;grid-template-columns:210mm 210mm;justify-content:center;row-gap:36px;}
+    body{display:grid;grid-template-columns:calc(210mm * var(--z)) calc(210mm * var(--z));justify-content:center;row-gap:36px;}
     .draft-banner{grid-column:1 / -1;margin-bottom:0;}
-    .page{margin:0;}
+    /* книга уменьшена зумом, чтобы заметки всегда помещались на полях;
+       заметки контр-зумом возвращены к читаемому размеру */
+    .page{margin:0;zoom:var(--z);}
+    .page :is(.ednote,.fnote,.todo){zoom:calc(1 / var(--z));}
+    .ednote .todo,.fnote .todo{zoom:1;}
     /* развороты [чётная|нечётная]: стр. 0 лицом к стр. 1, …, стр. 20 к стр. 21;
        нечётные div'ы = чётные страницы = слева, чётные div'ы = нечётные страницы = справа */
     .page:nth-of-type(odd){border-right:none;box-shadow:inset -14px 0 22px -16px rgba(60,40,10,.4),0 2px 8px rgba(60,40,10,.08);}
     .page:nth-of-type(even){border-left:none;box-shadow:inset 14px 0 22px -16px rgba(60,40,10,.4),0 2px 8px rgba(60,40,10,.08);}
+    /* заметки — на внешних полях разворота, зеркально */
+    .page:nth-of-type(odd) :is(.ednote,.fnote,.todo){left:auto;right:100%;margin-left:0;margin-right:26px;}
   }
-  /* средняя ширина: рядом с разворотом нет места для полей — заметки в потоке */
-  @media (min-width:1680px) and (max-width:2119px){
-    .ednote{position:static;width:auto;margin:18px 0;font-size:13.5px;padding:10px 14px;}
-  }
-  /* очень широкий экран: заметки на внешних полях разворота, зеркально */
-  @media (min-width:2120px){
-    .page:nth-of-type(odd) .ednote{left:auto;right:100%;margin-left:0;margin-right:26px;}
-  }
+  @media (min-width:2150px){:root{--z:.85;}}
+  @media (min-width:2560px){:root{--z:1;}}
   /* печать (File → Print): лист A4 без полей принтера, каждый .page — с нового листа */
   @page{size:A4;margin:0;}
   @media print{
     body{background:#faf5e9;margin:0;padding:0;}
-    .draft-banner,.ednote{display:none;}
+    /* весь служебный текст (заметки на полях, ✎-пометки, номера рамок) не печатается —
+       на листе остаётся только книжный макет с пустыми рамками под иллюстрации */
+    .draft-banner,.ednote,.fnote,.todo,.fnum{display:none;}
     /* min-height чуть меньше 297mm — запас на округление, иначе вылезают пустые листы */
     .page{min-height:296.5mm;padding:14mm 16mm 10mm;margin:0;border:none;box-shadow:none;break-after:page;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
     .page:last-child{break-after:auto;page-break-after:auto;}
-    /* плейсхолдеры иллюстраций в печати компактнее — в книге их место займут картинки */
-    .figure{padding:10px 14px;margin:14px 0;}
-    .figure .fmeta{font-size:12.5px;}
-    .prompt{font-size:10.5px;line-height:1.4;}
   }
 </style>
 </head>
@@ -90,10 +104,10 @@
 <header class="draft-banner">
   <b>ЧЕРНОВИК v0.1 · «Кофе в Городе»</b> · рабочий файл для правок<br><br>
   Как читать этот файл:<br>
-  · обычный текст с засечками — это текст книги;<br>
-  · <b>пунктирные блоки</b> — плейсхолдеры иллюстраций: внутри описание, размер и готовый промпт для нейросети (на английском — большинство генераторов так понимают лучше);<br>
-  · <b>жёлтые пометки ✎</b> — факты и формулировки, которые нужно проверить перед печатью;<br>
-  · <b>серые блоки «ДЛЯ РЕДАКЦИИ»</b> — служебные заметки на полях справа от страницы, в книгу не идут (на узком экране показываются внутри страницы).<br><br>
+  · страницы — печатный макет книги: только её текст и пустые пунктирные рамки на месте будущих иллюстраций;<br>
+  · весь служебный текст вынесен на поля: <b>пунктирные заметки</b> — задания на иллюстрации (описание, размер, промпт для нейросети — на английском, большинство генераторов так понимают лучше); <b>жёлтые пометки ✎</b> — факты и формулировки, которые нужно проверить перед печатью; <b>серые блоки «ДЛЯ РЕДАКЦИИ»</b> — заметки, в книгу не идущие;<br>
+  · при печати (File → Print) поля с заметками не выводятся — печатается чистый книжный макет;<br>
+  · на узком экране поля не помещаются, и заметки показываются внутри страниц.<br><br>
   Все промпты написаны по принципу «текст отдельно, картинка отдельно»: подписи, даты и номера добавляются вёрсткой, нейросеть текст не рисует.
 </header>
 
@@ -113,11 +127,14 @@
   <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ · НАЗВАНИЕ</span>
   Рабочее. Варианты на выбор: «Кофе в Городе», «Город и кофе», «Кофе над Неманом», «Пять чашек Гродно». Решим после вёрстки обложки.</div>
 
-  <div class="figure">
+  <div class="figure" style="aspect-ratio:3/1">
+    <span class="fnum">ИЛЛ. 01</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 01 · ЗАГЛАВНАЯ ВИНЬЕТКА</div>
     <p class="fmeta"><b>Что изображено:</b> ветка кофейного дерева с листьями и спелыми ягодами, классическая ботаническая гравюра. Один объект на пустом фоне, без рамок и надписей.</p>
     <p class="fmeta"><b>Размер и место:</b> горизонтальная узкая полоса 3:1 (~1800×600 px), под заголовком, по центру.</p>
     <div class="prompt">A single coffee plant branch with leaves and ripe red coffee cherries, antique botanical engraving, 19th century book illustration style, fine cross-hatching, sepia ink on aged cream paper, isolated object, plenty of empty space around, no text, no letters, no frame, no watermark. Horizontal 3:1 composition.</div>
+    </aside>
   </div>
 
   <h2>Пока вам несут кофе</h2>
@@ -163,7 +180,9 @@
   <div class="insight"><span class="ilabel">Кстати</span>
   Слово «кофе» прошло тот же путь, что и зёрна: арабское «кахва» превратилось в турецкое «кахве», то — в голландское «коффи», а уже оттуда добралось до нас.</div>
 
-  <div class="figure">
+  <div class="figure" style="aspect-ratio:5/1">
+    <span class="fnum">ИЛЛ. 02</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 02 · СЕРИЯ ИЗ ПЯТИ МИНИАТЮР К ТАЙМЛАЙНУ</div>
     <p class="fmeta"><b>Что изображено:</b> пять маленьких квадратных иллюстраций, по одной на остановку маршрута (Гродно остаётся без миниатюры — его «картинка» начинается со следующей главы). Единый стиль, генерируются по одному шаблону промпта — меняется только сцена.</p>
     <p class="fmeta"><b>Размер и место:</b> квадраты 1:1 (~700×700 px каждый), ставятся слева от соответствующего пункта таймлайна.</p>
@@ -175,6 +194,7 @@
 3) Interior of a 16th century Ottoman coffeehouse: men in turbans sitting on low cushions, one pouring coffee from a tall slim brass pot into tiny cups, ornate arches in the background
 4) A man in 17th century European clothes with a wide-brimmed hat standing proudly next to a pile of burlap sacks on a cobblestone square, baroque city houses behind him
 5) A corner of an 18th century manor dining room: a porcelain coffee pot and small cups on a table with white linen, a tall window with garden light</div>
+    </aside>
   </div>
   <div class="pagenum">— стр. 3 —</div>
 </div>
@@ -188,11 +208,14 @@
   <p>Шляхта варила его по-своему: очень крепко, почти до черноты, и подавала с густыми сливками. Сливки готовили заранее — давали им отстояться в холоде, чтобы сверху схватилась плотная плёнка, и снимали её ложкой. Эти «кожушки» клали прямо в чашку. Можно сказать, XVIII век так делал латте-арт.</p>
   <p>В богатом доме кофе был не напитком, а церемонией. Для него держали отдельную служанку — <b>кавярку</b>. Её единственной обязанностью было выбирать зёрна, обжаривать, молоть и варить. Больше кавярка не делала ничего — и хорошая кавярка ценилась на вес золота.</p>
 
-  <div class="figure">
+  <div class="figure" style="aspect-ratio:3/2">
+    <span class="fnum">ИЛЛ. 03</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 03 · УСАДЕБНАЯ СЦЕНА С КАВЯРКОЙ</div>
     <p class="fmeta"><b>Что изображено:</b> молодая женщина в костюме служанки XVIII века наливает кофе из медного кофейника в фарфоровую чашку; стол с белой скатертью, за столом ждут силуэты хозяев, мягкий свет из высокого окна.</p>
     <p class="fmeta"><b>Размер и место:</b> горизонталь 3:2 (~1800×1200 px), на всю ширину полосы между вторым и третьим абзацем.</p>
     <div class="prompt">An 18th century manor interior scene: a young maid in modest historical servant dress pouring coffee from a copper coffee pot into a small porcelain cup, table with white linen tablecloth, two seated figures in period clothing waiting at the table, soft daylight from a tall window, antique book illustration, copper engraving style with light sepia watercolor wash, fine cross-hatching, warm cream tones, no text, no letters, no frame, no watermark. Horizontal 3:2 composition.</div>
+    </aside>
   </div>
   <div class="pagenum">— стр. 4 —</div>
 </div>
@@ -223,12 +246,15 @@
   <p class="lead">Антоний Тизенгауз (1733–1785), надворный подскарбий Великого княжества Литовского и гродненский староста, спал по пять часов в сутки и за полтора десятилетия попытался перепрыгнуть с городом через целое столетие.</p>
   <p>На Городнице и Лососянке при нём выросли десятки мануфактур — от карет и шёлковых поясов до игральных карт <span class="todo">✎ список производств сверить</span>, появились театр, медицинская школа с ботаническим садом, типография. Современники говорили, что староста мечтает превратить Гродно в цветущую Голландию.</p>
   <p>Среди всего этого размаха легко не заметить одну строчку: именно Тизенгауз открыл <b>первую в городе кофейню</b>. Считается, что стояла она там, где сейчас главный корпус университета имени Янки Купалы <span class="todo">✎ найти первичный источник: пока опираемся на публикацию Гродненского музея религии</span>.</p>
-  <div class="figure">
+  <div class="figure fig-right" style="aspect-ratio:3/4">
+    <span class="fnum">ИЛЛ. 04</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 04 · ПОРТРЕТ ТИЗЕНГАУЗА</div>
     <p class="fmeta"><b>Что изображено:</b> поясной портрет вельможи XVIII века в парике и кафтане, гравюрный стиль. Подпись «Антоний Тизенгауз» добавляется вёрсткой, не картинкой.</p>
     <p class="fmeta"><b>Размер и место:</b> вертикаль 3:4 (~900×1200 px), в начале главы справа от первого абзаца, с обтеканием.</p>
     <p class="fmeta"><b>Примечание:</b> план А — взять реальный исторический портрет (они в общественном достоянии, есть в музейных коллекциях). Генерация — запасной вариант, и тогда в подписи честно пишем «художественная фантазия по мотивам эпохи»: нейросеть не знает, как выглядел Тизенгауз, и портретного сходства не даст.</p>
     <div class="prompt">A waist-up portrait of an 18th century nobleman in a powdered wig and an embroidered coat with a jabot, dignified stern expression, classic antique copper engraving portrait style, fine cross-hatching, oval vignette fading into blank aged paper, sepia tones, no text, no letters, no frame, no watermark. Vertical 3:4 composition.</div>
+    </aside>
   </div>
   <div class="pagenum">— стр. 6 —</div>
 </div>
@@ -237,11 +263,14 @@
 <div class="page">
   <p>Кофегауз сделал своё дело: староста, как сказали бы сейчас, подсадил на кофе местную знать. У магнатов в домах начали появляться специальные печи для обжарки зёрен — кофе перестал быть столичной диковиной и стал гродненской привычкой.</p>
 
-  <div class="figure">
+  <div class="figure" style="aspect-ratio:16/9">
+    <span class="fnum">ИЛЛ. 05</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 05 · КОФЕГАУЗ: РЕКОНСТРУКЦИЯ-ФАНТАЗИЯ (главная иллюстрация книги)</div>
     <p class="fmeta"><b>Что изображено:</b> двухэтажное классицистическое здание XVIII века на небольшой площади, вечер, тёплый свет в окнах первого этажа, у входа несколько фигур в одежде эпохи, у коновязи — экипаж. Никаких вывесок и надписей — атмосфера «так это могло выглядеть».</p>
     <p class="fmeta"><b>Размер и место:</b> широкая горизонталь 16:9 (~2400×1350 px), разворотная, между четвёртым и пятым абзацем. Подпись вёрсткой: «Первый кофегауз: так он мог выглядеть. Реконструкция-фантазия».</p>
     <div class="prompt">A two-story 18th century classicist town pavilion with tall arched windows on a small cobblestone square at dusk, warm candlelight glowing in the ground floor windows, a few figures in 18th century clothing near the entrance, a horse carriage waiting nearby, old linden trees, antique copper engraving style with subtle warm sepia wash, fine cross-hatching, atmospheric evening light, no text, no letters, no signage, no frame, no watermark. Horizontal 16:9 composition.</div>
+    </aside>
   </div>
 
   <p>Сам Тизенгауз закончил плохо. Реформы надорвались, недруги при дворе добились его отставки, и в 1785 году он умер вдали от своих фабрик. Его дворец на шестьдесят комнат — он стоял там, где сейчас парк Жилибера, — сгорел в Первую мировую. А привычка к кофе осталась. Похоже, это самый живучий из всех его проектов.</p>
@@ -259,12 +288,15 @@
   <p class="lead">Настоящий кофейный бум случился в городе между двумя войнами.</p>
   <p>Гродно 1920–30-х — город кавярен и цукерен: зеркала, мраморные столики, запах ванили и свежие газеты из Варшавы и Кракова на деревянных держателях. Сюда приходили не «взять кофе», а провести вечер: за одним столиком спорили о политике, за другим делали предложение руки и сердца.</p>
 
-  <div class="figure">
+  <div class="figure" style="aspect-ratio:3/2">
+    <span class="fnum">ИЛЛ. 06</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 06 · УЛИЦА С КОФЕЙНЕЙ, 1930-е</div>
     <p class="fmeta"><b>Что изображено:</b> уличная терраса кофейни межвоенного времени: гнутые венские стулья, круглые столики, посетители в одежде 1930-х, маркиза над витриной — без читаемых надписей на ней.</p>
     <p class="fmeta"><b>Размер и место:</b> горизонталь 3:2 (~1800×1200 px), после вводного абзаца.</p>
     <p class="fmeta"><b>Примечание:</b> основной план — реальные архивные фото (музеи, частные коллекции, краеведческие сообщества). Генерация — заглушка на время макета и для случаев, где архивного кадра нет.</p>
     <div class="prompt">A 1930s European street cafe terrace: round marble tables, bentwood chairs, a few guests in 1930s clothing (men in hats, women in cloche hats), a striped awning above a shop window, cobblestone street, vintage black and white photograph style with slight sepia toning, soft film grain, natural daylight, no text, no letters, no readable signs, no watermark. Horizontal 3:2 composition.</div>
+    </aside>
   </div>
   <div class="pagenum">— стр. 8 —</div>
 </div>
@@ -300,11 +332,14 @@
   <div class="insight"><span class="ilabel">Что такое буза</span>
   Густой, чуть шипучий напиток из проса: кисло-сладкий, почти без алкоголя, пьётся ложечкой и через смех. В наши края пришёл с востока <span class="todo">✎ уточнить: через татарскую кухню?</span>. Встретите на фестивале — берите: это вкус межвоенного Гродно.</div>
 
-  <div class="figure">
+  <div class="figure" style="aspect-ratio:3/2;height:92mm;margin-left:auto;margin-right:auto">
+    <span class="fnum">ИЛЛ. 07</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 07 · ИНТЕРЬЕР КОНДИТЕРСКОЙ</div>
     <p class="fmeta"><b>Что изображено:</b> интерьер кондитерской 1930-х: стеклянная витрина с пирожными, большое зеркало в раме, мраморная стойка, латунная кофемашина того времени, продавщица в белом фартуке.</p>
     <p class="fmeta"><b>Размер и место:</b> горизонталь 3:2 (~1800×1200 px), рядом с карточками заведений.</p>
     <div class="prompt">Interior of a 1930s Central European patisserie: a glass display counter with cakes and pastries, a large framed mirror on the wall, marble countertop, an early brass espresso machine, a saleswoman in a white apron, warm soft light, vintage black and white photograph style with slight sepia toning, soft film grain, no text, no letters, no readable signs, no watermark. Horizontal 3:2 composition.</div>
+    </aside>
   </div>
   <div class="pagenum">— стр. 9 —</div>
 </div>
@@ -319,11 +354,14 @@
   <p>Поэтому на предыдущих страницах так мало фамилий. Это не пробел в нашей работе — это след того времени.</p>
   <p>Пусть эта страница останется почти пустой.</p>
 
-  <div class="figure">
+  <div class="figure fig-small" style="aspect-ratio:1/1">
+    <span class="fnum">ИЛЛ. 08</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 08 · ПУСТАЯ ЧАШКА</div>
     <p class="fmeta"><b>Что изображено:</b> одна пустая фарфоровая чашка на блюдце на тёмном фоне, боковой свет, много пустого пространства. Никаких других предметов.</p>
     <p class="fmeta"><b>Размер и место:</b> небольшой квадрат 1:1 (~900×900 px), по центру нижней половины страницы. Остальное пространство страницы сознательно оставляем пустым.</p>
     <div class="prompt">A single empty white porcelain coffee cup on a saucer, dark muted background, soft side light, large amount of empty negative space, quiet melancholic still life, fine art etching style, subdued sepia and grey tones, no text, no letters, no watermark. Square 1:1 composition.</div>
+    </aside>
   </div>
 
   <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ · ТОН ГЛАВЫ</span>
@@ -348,11 +386,14 @@
   <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ · ЛОКАЛЬНЫЙ МАТЕРИАЛ</span>
   Добавить 1–2 гродненские точки советского времени (кафе, кулинария, кафетерий гастронома) по воспоминаниям горожан — можно собрать через соцсети кофейни. Сейчас глава общесоюзная, ей не хватает местного адреса.</div>
 
-  <div class="figure">
+  <div class="figure" style="aspect-ratio:3/2;height:70mm;margin-left:auto;margin-right:auto">
+    <span class="fnum">ИЛЛ. 09</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 09 · СОВЕТСКИЙ КОФЕЙНЫЙ НАТЮРМОРТ</div>
     <p class="fmeta"><b>Что изображено:</b> натюрморт на кухне 1960–70-х: медная джезва на газовой конфорке с синим пламенем, ручная кофемолка с выдвижным ящичком, жестяная банка с силуэтом слона (без надписей!), гранёный стакан.</p>
     <p class="fmeta"><b>Размер и место:</b> горизонталь 3:2 (~1800×1200 px), после третьего абзаца.</p>
     <div class="prompt">A cozy soviet 1960s kitchen still life: a small copper cezve coffee pot on a gas stove burner with a blue flame, a wooden hand-crank coffee grinder with a small drawer, a plain tin can decorated only with a simple elephant silhouette, a faceted glass, retro gouache illustration style, muted warm 1960s poster palette, soft shapes, slightly naive style, no text, no letters, no labels, no watermark. Horizontal 3:2 composition.</div>
+    </aside>
   </div>
   <div class="pagenum">— стр. 11 —</div>
 </div>
@@ -378,12 +419,15 @@
 
 <!-- ===================== СТР. 13 ===================== -->
 <div class="page">
-  <div class="figure">
+  <div class="figure fig-fill">
+    <span class="fnum">ИЛЛ. 10 · КАРТА</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 10 · КАРТА МАРШРУТА — ВАЖНОЕ ПРИМЕЧАНИЕ</div>
     <p class="fmeta"><b>Как делаем:</b> нейросеть НЕ генерирует саму карту — реальную сетку улиц она не нарисует, а фантазийная собьёт людей с маршрута. План такой: дизайнер берёт реальную схему улиц (OpenStreetMap), стилизует «под старину» (цвет бумаги, тонкие линии), номера точек и подписи кладёт вёрсткой.</p>
     <p class="fmeta"><b>Что генерируем:</b> только декоративное обрамление — картуш и розу ветров в углах карты.</p>
     <p class="fmeta"><b>Размер и место:</b> карта — на всю страницу 13, лицом к списку маршрута на стр. 12; картуш — отдельный элемент 1:1 (~800×800 px) на прозрачном/светлом фоне.</p>
     <div class="prompt">An ornate baroque map cartouche frame with scrollwork and a small compass rose, antique cartography decoration element, copper engraving style, fine lines, sepia ink on aged parchment background, isolated decorative element with empty space inside the frame, no text, no letters, no numbers, no map, no watermark. Square 1:1 composition.</div>
+    </aside>
   </div>
   <div class="pagenum">— стр. 13 —</div>
 </div>
@@ -399,7 +443,7 @@
   <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ · БЛОК В РАБОТЕ</span>
   Карточки ниже — каркас. Список кофеен, факты и фото согласуем отдельно (анкета для заведений — отдельным документом). Фото здесь настоящие, генерацию не используем. На каждую страницу — две карточки, итого 8 заведений на 4 страницы; если мест больше — расширяем главу.</div>
 
-  <div class="cards cards-stack">
+  <div class="cards cards-stack cards-tight">
     <div class="card">
       <h3>Кофейня 1</h3>
       <p><b>Год открытия:</b> —</p>
@@ -407,7 +451,7 @@
       <p><b>Фишка</b> (одно предложение): —</p>
       <p><b>Один факт:</b> —</p>
       <p><b>Что взять в первый раз:</b> —</p>
-      <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
+      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
     </div>
     <div class="card">
       <h3>Кофейня 2</h3>
@@ -416,7 +460,7 @@
       <p><b>Фишка:</b> —</p>
       <p><b>Один факт:</b> —</p>
       <p><b>Что взять в первый раз:</b> —</p>
-      <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
+      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
     </div>
   </div>
   <div class="pagenum">— стр. 14 —</div>
@@ -432,7 +476,7 @@
       <p><b>Фишка:</b> —</p>
       <p><b>Один факт:</b> —</p>
       <p><b>Что взять в первый раз:</b> —</p>
-      <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
+      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
     </div>
     <div class="card">
       <h3>Кофейня 4</h3>
@@ -441,7 +485,7 @@
       <p><b>Фишка:</b> —</p>
       <p><b>Один факт:</b> —</p>
       <p><b>Что взять в первый раз:</b> —</p>
-      <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
+      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
     </div>
   </div>
   <div class="pagenum">— стр. 15 —</div>
@@ -457,7 +501,7 @@
       <p><b>Фишка:</b> —</p>
       <p><b>Один факт:</b> —</p>
       <p><b>Что взять в первый раз:</b> —</p>
-      <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
+      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
     </div>
     <div class="card">
       <h3>Кофейня 6</h3>
@@ -466,7 +510,7 @@
       <p><b>Фишка:</b> —</p>
       <p><b>Один факт:</b> —</p>
       <p><b>Что взять в первый раз:</b> —</p>
-      <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
+      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
     </div>
   </div>
   <div class="pagenum">— стр. 16 —</div>
@@ -482,7 +526,7 @@
       <p><b>Фишка:</b> —</p>
       <p><b>Один факт:</b> —</p>
       <p><b>Что взять в первый раз:</b> —</p>
-      <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
+      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
     </div>
     <div class="card">
       <h3>Кофейня 8</h3>
@@ -491,7 +535,7 @@
       <p><b>Фишка:</b> —</p>
       <p><b>Один факт:</b> —</p>
       <p><b>Что взять в первый раз:</b> —</p>
-      <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
+      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО</span></div>
     </div>
   </div>
   <div class="pagenum">— стр. 17 —</div>
@@ -514,11 +558,14 @@
 
   <p>Что это значит для нас, на этом берегу Немана? Кофе перестаёт быть дешёвой привычкой и снова становится тем, чем был при Тизенгаузе, — маленькой роскошью. Хорошая новость в том, что роскошь — это не цена, а внимание. Пейте вдумчиво.</p>
 
-  <div class="figure">
+  <div class="figure" style="aspect-ratio:1/1;height:65mm;margin-left:auto;margin-right:auto">
+    <span class="fnum">ИЛЛ. 11</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 11 · ВИНЬЕТКА ГЛАВЫ</div>
     <p class="fmeta"><b>Что изображено:</b> ботаническая зарисовка ветки кофе, где половина ягод спелые, половина — высохшие; сдержанный, чуть тревожный вариант виньетки со стр. 1.</p>
     <p class="fmeta"><b>Размер и место:</b> небольшой квадрат 1:1 (~800×800 px), рядом с блоком цифр.</p>
     <div class="prompt">A botanical study of a coffee plant branch where half of the cherries are ripe and plump and the other half are dried and shriveled, some leaves curling at the edges, antique botanical engraving style, fine cross-hatching, sepia ink on aged cream paper, isolated object with empty space around, no text, no letters, no frame, no watermark. Square 1:1 composition.</div>
+    </aside>
   </div>
   <div class="pagenum">— стр. 18 —</div>
 </div>
@@ -569,11 +616,14 @@
 
   <p><b>Благодарности:</b> <span class="todo">✎ список</span></p>
 
-  <div class="figure">
+  <div class="figure fig-small" style="aspect-ratio:1/1">
+    <span class="fnum">ИЛЛ. 12</span>
+    <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 12 · ФИНАЛЬНАЯ ВИНЬЕТКА + МЕСТО ПОД QR</div>
     <p class="fmeta"><b>Что изображено:</b> маленькая чашка кофе на блюдце, вид сверху, лёгкий пар; точка в конце книги. Рядом вёрсткой ставим QR-код (электронная версия книги + карта маршрута).</p>
     <p class="fmeta"><b>Размер и место:</b> квадрат 1:1 (~700×700 px), по центру внизу страницы.</p>
     <div class="prompt">A small cup of coffee on a saucer seen from directly above, a gentle wisp of steam, antique copper engraving style, fine cross-hatching, sepia ink on aged cream paper, isolated object with generous empty space around, no text, no letters, no frame, no watermark. Square 1:1 composition.</div>
+    </aside>
   </div>
 
   <p style="font-size:13px;color:#9b8a6b;">«Кофе в Городе» · черновик v0.1 · набрано за столиком, пока несли капучино · тираж, типография, год — позже</p>
@@ -587,5 +637,32 @@
   <div class="pagenum">— стр. 21 —</div>
 </div>
 
+<script>
+/* Служебный скрипт черновика: расталкивает заметки на полях, чтобы они не
+   накладывались друг на друга. На печать и на текст книги не влияет. */
+(function(){
+  function layout(){
+    document.querySelectorAll('.page').forEach(function(page){
+      var notes=[].slice.call(page.querySelectorAll('.ednote,.fnote,.todo'));
+      notes.forEach(function(n){n.style.top='';});
+      notes=notes.filter(function(n){return getComputedStyle(n).position==='absolute';});
+      if(!notes.length) return;
+      var pz=parseFloat(getComputedStyle(page).zoom)||1;
+      var pr=page.getBoundingClientRect();
+      notes.map(function(n){
+        var nz=pz*(parseFloat(getComputedStyle(n).zoom)||1);
+        return {n:n,nz:nz,top:n.getBoundingClientRect().top-pr.top};
+      }).sort(function(a,b){return a.top-b.top;})
+        .reduce(function(cursor,o){
+          var want=Math.max(o.top,cursor);
+          if(want>o.top+0.5){o.n.style.top=(want/o.nz)+'px';}
+          return want+o.n.getBoundingClientRect().height+8;
+        },0);
+    });
+  }
+  addEventListener('load',layout);
+  addEventListener('resize',function(){clearTimeout(layout._t);layout._t=setTimeout(layout,150);});
+})();
+</script>
 </body>
 </html>
