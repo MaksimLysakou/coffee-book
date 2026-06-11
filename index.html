@@ -35,6 +35,7 @@
   .timeline li{margin:0 0 16px;padding-left:14px;border-left:2px solid #d8c9a8;}
   .timeline .tdate{font-weight:bold;color:#8c5a2b;display:block;font-size:15px;}
   .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
+  .cards.cards-stack{grid-template-columns:1fr;}
   .card{border:1px solid #d8c9a8;background:#fffdf4;padding:14px 16px;}
   .card p{font-size:14px;margin:0 0 6px;}
   .route{list-style:none;padding:0;}
@@ -50,6 +51,25 @@
   .bignums div{flex:1;min-width:150px;border:1px solid #d8c9a8;background:#fffdf4;padding:14px 10px;}
   .bignums .n{font-size:28px;color:#8c5a2b;display:block;}
   .bignums .l{font-size:13px;color:#6f6049;}
+  /* разворот: на широких экранах страницы идут парами, как открытая книга —
+     нечётные страницы справа, чётные слева; стр. 1 — одна, справа */
+  @media (min-width:1680px){
+    body{display:grid;grid-template-columns:210mm 210mm;justify-content:center;row-gap:36px;}
+    .draft-banner{grid-column:1 / -1;margin-bottom:0;}
+    .page{margin:0;}
+    /* развороты [чётная|нечётная]: стр. 0 лицом к стр. 1, …, стр. 20 к стр. 21;
+       нечётные div'ы = чётные страницы = слева, чётные div'ы = нечётные страницы = справа */
+    .page:nth-of-type(odd){border-right:none;box-shadow:inset -14px 0 22px -16px rgba(60,40,10,.4),0 2px 8px rgba(60,40,10,.08);}
+    .page:nth-of-type(even){border-left:none;box-shadow:inset 14px 0 22px -16px rgba(60,40,10,.4),0 2px 8px rgba(60,40,10,.08);}
+  }
+  /* средняя ширина: рядом с разворотом нет места для полей — заметки в потоке */
+  @media (min-width:1680px) and (max-width:2119px){
+    .ednote{position:static;width:auto;margin:18px 0;font-size:13.5px;padding:10px 14px;}
+  }
+  /* очень широкий экран: заметки на внешних полях разворота, зеркально */
+  @media (min-width:2120px){
+    .page:nth-of-type(odd) .ednote{left:auto;right:100%;margin-left:0;margin-right:26px;}
+  }
   /* печать (File → Print): лист A4 без полей принтера, каждый .page — с нового листа */
   @page{size:A4;margin:0;}
   @media print{
@@ -57,7 +77,7 @@
     .draft-banner,.ednote{display:none;}
     /* min-height чуть меньше 297mm — запас на округление, иначе вылезают пустые листы */
     .page{min-height:296.5mm;padding:14mm 16mm 10mm;margin:0;border:none;box-shadow:none;break-after:page;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    .page:last-of-type{break-after:auto;page-break-after:auto;}
+    .page:last-child{break-after:auto;page-break-after:auto;}
     /* плейсхолдеры иллюстраций в печати компактнее — в книге их место займут картинки */
     .figure{padding:10px 14px;margin:14px 0;}
     .figure .fmeta{font-size:12.5px;}
@@ -67,7 +87,7 @@
 </head>
 <body>
 
-<div class="draft-banner">
+<header class="draft-banner">
   <b>ЧЕРНОВИК v0.1 · «Кофе в Городе»</b> · рабочий файл для правок<br><br>
   Как читать этот файл:<br>
   · обычный текст с засечками — это текст книги;<br>
@@ -75,6 +95,13 @@
   · <b>жёлтые пометки ✎</b> — факты и формулировки, которые нужно проверить перед печатью;<br>
   · <b>серые блоки «ДЛЯ РЕДАКЦИИ»</b> — служебные заметки на полях справа от страницы, в книгу не идут (на узком экране показываются внутри страницы).<br><br>
   Все промпты написаны по принципу «текст отдельно, картинка отдельно»: подписи, даты и номера добавляются вёрсткой, нейросеть текст не рисует.
+</header>
+
+<!-- ===================== СТР. 0 · ОБЛОЖКА, ПЕРЕДНЯЯ ===================== -->
+<div class="page">
+  <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ · ОБЛОЖКА</span>
+  Передняя обложка. Пока пустая — сюда придёт картинка обложки; макет делаем после выбора названия (см. заметку на стр. 1).</div>
+  <div class="pagenum">— стр. 0 —</div>
 </div>
 
 <!-- ===================== СТР. 1 ===================== -->
@@ -101,7 +128,7 @@
   <div class="pagenum">— стр. 1 —</div>
 </div>
 
-<!-- ===================== СТР. 2–3 ===================== -->
+<!-- ===================== СТР. 2 ===================== -->
 <div class="page">
   <p class="kicker">Глава первая</p>
   <h2>Путь зерна: тысяча лет за две минуты</h2>
@@ -119,7 +146,13 @@
 
     <li><span class="tdate">1683 · Вена</span>
     Турецкая армия снимает осаду города и бросает обоз, а в нём — сотни мешков с непонятными зёрнами. По легенде, мешки достаются Юрию Кульчицкому, шляхтичу из Речи Посполитой, и он открывает одну из первых кофеен Европы. Историки к легенде придираются, но факт остаётся: примерно тогда Европа научилась смягчать кофе молоком и мёдом.</li>
+  </ul>
+  <div class="pagenum">— стр. 2 —</div>
+</div>
 
+<!-- ===================== СТР. 3 ===================== -->
+<div class="page">
+  <ul class="timeline">
     <li><span class="tdate">XVIII век · Варшава и Вильна</span>
     Кофе становится модой Речи Посполитой: первая варшавская кофейня открывается около 1724 года <span class="todo">✎ дату сверить</span>, и скоро без «кавы» не обходится ни один порядочный дом.</li>
 
@@ -143,10 +176,10 @@
 4) A man in 17th century European clothes with a wide-brimmed hat standing proudly next to a pile of burlap sacks on a cobblestone square, baroque city houses behind him
 5) A corner of an 18th century manor dining room: a porcelain coffee pot and small cups on a table with white linen, a tall window with garden light</div>
   </div>
-  <div class="pagenum">— стр. 2–3 —</div>
+  <div class="pagenum">— стр. 3 —</div>
 </div>
 
-<!-- ===================== СТР. 4–5 ===================== -->
+<!-- ===================== СТР. 4 ===================== -->
 <div class="page">
   <p class="kicker">Глава вторая</p>
   <h2>Кофе по-шляхетски: кавярка и поэт</h2>
@@ -154,6 +187,18 @@
   <p class="lead">Прежде чем поселиться в кофейнях, кофе жил в усадьбах.</p>
   <p>Шляхта варила его по-своему: очень крепко, почти до черноты, и подавала с густыми сливками. Сливки готовили заранее — давали им отстояться в холоде, чтобы сверху схватилась плотная плёнка, и снимали её ложкой. Эти «кожушки» клали прямо в чашку. Можно сказать, XVIII век так делал латте-арт.</p>
   <p>В богатом доме кофе был не напитком, а церемонией. Для него держали отдельную служанку — <b>кавярку</b>. Её единственной обязанностью было выбирать зёрна, обжаривать, молоть и варить. Больше кавярка не делала ничего — и хорошая кавярка ценилась на вес золота.</p>
+
+  <div class="figure">
+    <div class="flabel">🖼 ИЛЛ. 03 · УСАДЕБНАЯ СЦЕНА С КАВЯРКОЙ</div>
+    <p class="fmeta"><b>Что изображено:</b> молодая женщина в костюме служанки XVIII века наливает кофе из медного кофейника в фарфоровую чашку; стол с белой скатертью, за столом ждут силуэты хозяев, мягкий свет из высокого окна.</p>
+    <p class="fmeta"><b>Размер и место:</b> горизонталь 3:2 (~1800×1200 px), на всю ширину полосы между вторым и третьим абзацем.</p>
+    <div class="prompt">An 18th century manor interior scene: a young maid in modest historical servant dress pouring coffee from a copper coffee pot into a small porcelain cup, table with white linen tablecloth, two seated figures in period clothing waiting at the table, soft daylight from a tall window, antique book illustration, copper engraving style with light sepia watercolor wash, fine cross-hatching, warm cream tones, no text, no letters, no frame, no watermark. Horizontal 3:2 composition.</div>
+  </div>
+  <div class="pagenum">— стр. 4 —</div>
+</div>
+
+<!-- ===================== СТР. 5 ===================== -->
+<div class="page">
   <p>Лучший рекламный текст о здешнем кофе написал Адам Мицкевич — поэт, выросший на новогрудской земле, по соседству с нашей <span class="todo">✎ формулировку «по соседству/земляк» согласовать с краеведами</span>. В «Пане Тадеуше» он посвятил кофе целое лирическое отступление:</p>
 
   <div class="quote">
@@ -167,16 +212,10 @@
   <div class="insight"><span class="ilabel">Попробуйте дома</span>
   Кофе по-шляхетски: сварите крепкий кофе в джезве (примерно одна часть кофе на восемь частей воды), дайте жирным сливкам постоять в холодильнике и снимите ложкой верхнюю плёнку — это и есть «кожушок». Положите его в чашку поверх кофе. Сахар — по совести.</div>
 
-  <div class="figure">
-    <div class="flabel">🖼 ИЛЛ. 03 · УСАДЕБНАЯ СЦЕНА С КАВЯРКОЙ</div>
-    <p class="fmeta"><b>Что изображено:</b> молодая женщина в костюме служанки XVIII века наливает кофе из медного кофейника в фарфоровую чашку; стол с белой скатертью, за столом ждут силуэты хозяев, мягкий свет из высокого окна.</p>
-    <p class="fmeta"><b>Размер и место:</b> горизонталь 3:2 (~1800×1200 px), на всю ширину полосы между вторым и третьим абзацем.</p>
-    <div class="prompt">An 18th century manor interior scene: a young maid in modest historical servant dress pouring coffee from a copper coffee pot into a small porcelain cup, table with white linen tablecloth, two seated figures in period clothing waiting at the table, soft daylight from a tall window, antique book illustration, copper engraving style with light sepia watercolor wash, fine cross-hatching, warm cream tones, no text, no letters, no frame, no watermark. Horizontal 3:2 composition.</div>
-  </div>
-  <div class="pagenum">— стр. 4–5 —</div>
+  <div class="pagenum">— стр. 5 —</div>
 </div>
 
-<!-- ===================== СТР. 6–7 ===================== -->
+<!-- ===================== СТР. 6 ===================== -->
 <div class="page">
   <p class="kicker">Глава третья</p>
   <h2>Тизенгауз и первый кофегауз</h2>
@@ -184,12 +223,6 @@
   <p class="lead">Антоний Тизенгауз (1733–1785), надворный подскарбий Великого княжества Литовского и гродненский староста, спал по пять часов в сутки и за полтора десятилетия попытался перепрыгнуть с городом через целое столетие.</p>
   <p>На Городнице и Лососянке при нём выросли десятки мануфактур — от карет и шёлковых поясов до игральных карт <span class="todo">✎ список производств сверить</span>, появились театр, медицинская школа с ботаническим садом, типография. Современники говорили, что староста мечтает превратить Гродно в цветущую Голландию.</p>
   <p>Среди всего этого размаха легко не заметить одну строчку: именно Тизенгауз открыл <b>первую в городе кофейню</b>. Считается, что стояла она там, где сейчас главный корпус университета имени Янки Купалы <span class="todo">✎ найти первичный источник: пока опираемся на публикацию Гродненского музея религии</span>.</p>
-  <p>Кофегауз сделал своё дело: староста, как сказали бы сейчас, подсадил на кофе местную знать. У магнатов в домах начали появляться специальные печи для обжарки зёрен — кофе перестал быть столичной диковиной и стал гродненской привычкой.</p>
-  <p>Сам Тизенгауз закончил плохо. Реформы надорвались, недруги при дворе добились его отставки, и в 1785 году он умер вдали от своих фабрик. Его дворец на шестьдесят комнат — он стоял там, где сейчас парк Жилибера, — сгорел в Первую мировую. А привычка к кофе осталась. Похоже, это самый живучий из всех его проектов.</p>
-
-  <div class="insight"><span class="ilabel">Кстати</span>
-  Характер у реформатора был тяжёлый: горожане звали Тизенгауза дьяволом — на его мануфактурах работали по четырнадцать часов, включая женщин и детей. История кофе вообще редко бывает уютной; мы ещё вспомним об этом на странице 18.</div>
-
   <div class="figure">
     <div class="flabel">🖼 ИЛЛ. 04 · ПОРТРЕТ ТИЗЕНГАУЗА</div>
     <p class="fmeta"><b>Что изображено:</b> поясной портрет вельможи XVIII века в парике и кафтане, гравюрный стиль. Подпись «Антоний Тизенгауз» добавляется вёрсткой, не картинкой.</p>
@@ -197,6 +230,12 @@
     <p class="fmeta"><b>Примечание:</b> план А — взять реальный исторический портрет (они в общественном достоянии, есть в музейных коллекциях). Генерация — запасной вариант, и тогда в подписи честно пишем «художественная фантазия по мотивам эпохи»: нейросеть не знает, как выглядел Тизенгауз, и портретного сходства не даст.</p>
     <div class="prompt">A waist-up portrait of an 18th century nobleman in a powdered wig and an embroidered coat with a jabot, dignified stern expression, classic antique copper engraving portrait style, fine cross-hatching, oval vignette fading into blank aged paper, sepia tones, no text, no letters, no frame, no watermark. Vertical 3:4 composition.</div>
   </div>
+  <div class="pagenum">— стр. 6 —</div>
+</div>
+
+<!-- ===================== СТР. 7 ===================== -->
+<div class="page">
+  <p>Кофегауз сделал своё дело: староста, как сказали бы сейчас, подсадил на кофе местную знать. У магнатов в домах начали появляться специальные печи для обжарки зёрен — кофе перестал быть столичной диковиной и стал гродненской привычкой.</p>
 
   <div class="figure">
     <div class="flabel">🖼 ИЛЛ. 05 · КОФЕГАУЗ: РЕКОНСТРУКЦИЯ-ФАНТАЗИЯ (главная иллюстрация книги)</div>
@@ -204,10 +243,15 @@
     <p class="fmeta"><b>Размер и место:</b> широкая горизонталь 16:9 (~2400×1350 px), разворотная, между четвёртым и пятым абзацем. Подпись вёрсткой: «Первый кофегауз: так он мог выглядеть. Реконструкция-фантазия».</p>
     <div class="prompt">A two-story 18th century classicist town pavilion with tall arched windows on a small cobblestone square at dusk, warm candlelight glowing in the ground floor windows, a few figures in 18th century clothing near the entrance, a horse carriage waiting nearby, old linden trees, antique copper engraving style with subtle warm sepia wash, fine cross-hatching, atmospheric evening light, no text, no letters, no signage, no frame, no watermark. Horizontal 16:9 composition.</div>
   </div>
-  <div class="pagenum">— стр. 6–7 —</div>
+
+  <p>Сам Тизенгауз закончил плохо. Реформы надорвались, недруги при дворе добились его отставки, и в 1785 году он умер вдали от своих фабрик. Его дворец на шестьдесят комнат — он стоял там, где сейчас парк Жилибера, — сгорел в Первую мировую. А привычка к кофе осталась. Похоже, это самый живучий из всех его проектов.</p>
+
+  <div class="insight"><span class="ilabel">Кстати</span>
+  Характер у реформатора был тяжёлый: горожане звали Тизенгауза дьяволом — на его мануфактурах работали по четырнадцать часов, включая женщин и детей. История кофе вообще редко бывает уютной; мы ещё вспомним об этом на странице 18.</div>
+  <div class="pagenum">— стр. 7 —</div>
 </div>
 
-<!-- ===================== СТР. 8–9 ===================== -->
+<!-- ===================== СТР. 8 ===================== -->
 <div class="page">
   <p class="kicker">Глава четвёртая</p>
   <h2>Золотой век: кофейни между войнами</h2>
@@ -215,6 +259,18 @@
   <p class="lead">Настоящий кофейный бум случился в городе между двумя войнами.</p>
   <p>Гродно 1920–30-х — город кавярен и цукерен: зеркала, мраморные столики, запах ванили и свежие газеты из Варшавы и Кракова на деревянных держателях. Сюда приходили не «взять кофе», а провести вечер: за одним столиком спорили о политике, за другим делали предложение руки и сердца.</p>
 
+  <div class="figure">
+    <div class="flabel">🖼 ИЛЛ. 06 · УЛИЦА С КОФЕЙНЕЙ, 1930-е</div>
+    <p class="fmeta"><b>Что изображено:</b> уличная терраса кофейни межвоенного времени: гнутые венские стулья, круглые столики, посетители в одежде 1930-х, маркиза над витриной — без читаемых надписей на ней.</p>
+    <p class="fmeta"><b>Размер и место:</b> горизонталь 3:2 (~1800×1200 px), после вводного абзаца.</p>
+    <p class="fmeta"><b>Примечание:</b> основной план — реальные архивные фото (музеи, частные коллекции, краеведческие сообщества). Генерация — заглушка на время макета и для случаев, где архивного кадра нет.</p>
+    <div class="prompt">A 1930s European street cafe terrace: round marble tables, bentwood chairs, a few guests in 1930s clothing (men in hats, women in cloche hats), a striped awning above a shop window, cobblestone street, vintage black and white photograph style with slight sepia toning, soft film grain, natural daylight, no text, no letters, no readable signs, no watermark. Horizontal 3:2 composition.</div>
+  </div>
+  <div class="pagenum">— стр. 8 —</div>
+</div>
+
+<!-- ===================== СТР. 9 ===================== -->
+<div class="page">
   <div class="cards">
     <div class="card">
       <h3>Кондитерская Котовского</h3>
@@ -245,20 +301,12 @@
   Густой, чуть шипучий напиток из проса: кисло-сладкий, почти без алкоголя, пьётся ложечкой и через смех. В наши края пришёл с востока <span class="todo">✎ уточнить: через татарскую кухню?</span>. Встретите на фестивале — берите: это вкус межвоенного Гродно.</div>
 
   <div class="figure">
-    <div class="flabel">🖼 ИЛЛ. 06 · УЛИЦА С КОФЕЙНЕЙ, 1930-е</div>
-    <p class="fmeta"><b>Что изображено:</b> уличная терраса кофейни межвоенного времени: гнутые венские стулья, круглые столики, посетители в одежде 1930-х, маркиза над витриной — без читаемых надписей на ней.</p>
-    <p class="fmeta"><b>Размер и место:</b> горизонталь 3:2 (~1800×1200 px), после вводного абзаца.</p>
-    <p class="fmeta"><b>Примечание:</b> основной план — реальные архивные фото (музеи, частные коллекции, краеведческие сообщества). Генерация — заглушка на время макета и для случаев, где архивного кадра нет.</p>
-    <div class="prompt">A 1930s European street cafe terrace: round marble tables, bentwood chairs, a few guests in 1930s clothing (men in hats, women in cloche hats), a striped awning above a shop window, cobblestone street, vintage black and white photograph style with slight sepia toning, soft film grain, natural daylight, no text, no letters, no readable signs, no watermark. Horizontal 3:2 composition.</div>
-  </div>
-
-  <div class="figure">
     <div class="flabel">🖼 ИЛЛ. 07 · ИНТЕРЬЕР КОНДИТЕРСКОЙ</div>
     <p class="fmeta"><b>Что изображено:</b> интерьер кондитерской 1930-х: стеклянная витрина с пирожными, большое зеркало в раме, мраморная стойка, латунная кофемашина того времени, продавщица в белом фартуке.</p>
     <p class="fmeta"><b>Размер и место:</b> горизонталь 3:2 (~1800×1200 px), рядом с карточками заведений.</p>
     <div class="prompt">Interior of a 1930s Central European patisserie: a glass display counter with cakes and pastries, a large framed mirror on the wall, marble countertop, an early brass espresso machine, a saleswoman in a white apron, warm soft light, vintage black and white photograph style with slight sepia toning, soft film grain, no text, no letters, no readable signs, no watermark. Horizontal 3:2 composition.</div>
   </div>
-  <div class="pagenum">— стр. 8–9 —</div>
+  <div class="pagenum">— стр. 9 —</div>
 </div>
 
 <!-- ===================== СТР. 10 ===================== -->
@@ -309,7 +357,7 @@
   <div class="pagenum">— стр. 11 —</div>
 </div>
 
-<!-- ===================== СТР. 12–13 ===================== -->
+<!-- ===================== СТР. 12 ===================== -->
 <div class="page">
   <p class="kicker">Глава седьмая</p>
   <h2>Кофейный круг: прогулка по старому городу</h2>
@@ -325,18 +373,22 @@
     <li><span class="rnum">6</span><b>Фарный костёл.</b> Внутри — памятник Тизенгаузу, заказанный его племянницей. Зайдите сказать спасибо человеку, который привёз сюда кофе.</li>
     <li><span class="rnum">7</span><b>Финиш: берег Немана у Старого замка.</b> Возьмите кофе с собой и посмотрите на реку, по которой в город веками приходили товары со всего света. Зерно когда-то было одним из них.</li>
   </ol>
+  <div class="pagenum">— стр. 12 —</div>
+</div>
 
+<!-- ===================== СТР. 13 ===================== -->
+<div class="page">
   <div class="figure">
     <div class="flabel">🖼 ИЛЛ. 10 · КАРТА МАРШРУТА — ВАЖНОЕ ПРИМЕЧАНИЕ</div>
     <p class="fmeta"><b>Как делаем:</b> нейросеть НЕ генерирует саму карту — реальную сетку улиц она не нарисует, а фантазийная собьёт людей с маршрута. План такой: дизайнер берёт реальную схему улиц (OpenStreetMap), стилизует «под старину» (цвет бумаги, тонкие линии), номера точек и подписи кладёт вёрсткой.</p>
     <p class="fmeta"><b>Что генерируем:</b> только декоративное обрамление — картуш и розу ветров в углах карты.</p>
-    <p class="fmeta"><b>Размер и место:</b> карта — разворот 16:9 на обе страницы; картуш — отдельный элемент 1:1 (~800×800 px) на прозрачном/светлом фоне.</p>
+    <p class="fmeta"><b>Размер и место:</b> карта — на всю страницу 13, лицом к списку маршрута на стр. 12; картуш — отдельный элемент 1:1 (~800×800 px) на прозрачном/светлом фоне.</p>
     <div class="prompt">An ornate baroque map cartouche frame with scrollwork and a small compass rose, antique cartography decoration element, copper engraving style, fine lines, sepia ink on aged parchment background, isolated decorative element with empty space inside the frame, no text, no letters, no numbers, no map, no watermark. Square 1:1 composition.</div>
   </div>
-  <div class="pagenum">— стр. 12–13 —</div>
+  <div class="pagenum">— стр. 13 —</div>
 </div>
 
-<!-- ===================== СТР. 14–17 ===================== -->
+<!-- ===================== СТР. 14 ===================== -->
 <div class="page">
   <p class="kicker">Глава восьмая</p>
   <h2>Кофе сегодня: новая волна</h2>
@@ -347,7 +399,7 @@
   <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ · БЛОК В РАБОТЕ</span>
   Карточки ниже — каркас. Список кофеен, факты и фото согласуем отдельно (анкета для заведений — отдельным документом). Фото здесь настоящие, генерацию не используем. На каждую страницу — две карточки, итого 8 заведений на 4 страницы; если мест больше — расширяем главу.</div>
 
-  <div class="cards">
+  <div class="cards cards-stack">
     <div class="card">
       <h3>Кофейня 1</h3>
       <p><b>Год открытия:</b> —</p>
@@ -366,6 +418,13 @@
       <p><b>Что взять в первый раз:</b> —</p>
       <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
     </div>
+  </div>
+  <div class="pagenum">— стр. 14 —</div>
+</div>
+
+<!-- ===================== СТР. 15 ===================== -->
+<div class="page">
+  <div class="cards cards-stack">
     <div class="card">
       <h3>Кофейня 3</h3>
       <p><b>Год открытия:</b> —</p>
@@ -384,6 +443,13 @@
       <p><b>Что взять в первый раз:</b> —</p>
       <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
     </div>
+  </div>
+  <div class="pagenum">— стр. 15 —</div>
+</div>
+
+<!-- ===================== СТР. 16 ===================== -->
+<div class="page">
+  <div class="cards cards-stack">
     <div class="card">
       <h3>Кофейня 5</h3>
       <p><b>Год открытия:</b> —</p>
@@ -402,6 +468,13 @@
       <p><b>Что взять в первый раз:</b> —</p>
       <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
     </div>
+  </div>
+  <div class="pagenum">— стр. 16 —</div>
+</div>
+
+<!-- ===================== СТР. 17 ===================== -->
+<div class="page">
+  <div class="cards cards-stack">
     <div class="card">
       <h3>Кофейня 7</h3>
       <p><b>Год открытия:</b> —</p>
@@ -421,7 +494,7 @@
       <p style="color:#9b8a6b;">[ФОТО — реальное, горизонталь 3:2]</p>
     </div>
   </div>
-  <div class="pagenum">— стр. 14–17 —</div>
+  <div class="pagenum">— стр. 17 —</div>
 </div>
 
 <!-- ===================== СТР. 18 ===================== -->
@@ -505,6 +578,13 @@
 
   <p style="font-size:13px;color:#9b8a6b;">«Кофе в Городе» · черновик v0.1 · набрано за столиком, пока несли капучино · тираж, типография, год — позже</p>
   <div class="pagenum">— стр. 20 —</div>
+</div>
+
+<!-- ===================== СТР. 21 · ОБЛОЖКА, ЗАДНЯЯ ===================== -->
+<div class="page">
+  <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ · ОБЛОЖКА</span>
+  Задняя обложка. Пока пустая — сюда придёт картинка; позже также: короткая аннотация, QR на электронную версию и выходные данные.</div>
+  <div class="pagenum">— стр. 21 —</div>
 </div>
 
 </body>
