@@ -7,7 +7,7 @@
   body{background:#e7decb;color:#2a2118;font-family:Georgia,'Times New Roman',serif;line-height:1.55;margin:0;padding:24px 12px 80px;}
   .draft-banner{max-width:740px;margin:0 auto 30px;background:#2a2118;color:#f1e8d6;padding:16px 22px;font-family:'Courier New',monospace;font-size:13px;border-radius:4px;}
   .draft-banner b{color:#ffd98a;}
-  .page{max-width:740px;margin:0 auto 36px;background:#faf5e9;border:1px solid #d8c9a8;box-shadow:0 2px 8px rgba(60,40,10,.08);padding:52px 58px 36px;}
+  .page{position:relative;max-width:740px;margin:0 auto 36px;background:#faf5e9;border:1px solid #d8c9a8;box-shadow:0 2px 8px rgba(60,40,10,.08);padding:52px 58px 36px;}
   .pagenum{text-align:center;color:#9b8a6b;font-size:12px;letter-spacing:.18em;margin-top:34px;border-top:1px solid #e3d6b8;padding-top:10px;}
   .kicker{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#8c5a2b;margin:0 0 10px;}
   h1{font-size:34px;line-height:1.18;margin:6px 0 4px;font-weight:normal;}
@@ -24,8 +24,12 @@
   .insight{border-left:4px solid #8c5a2b;background:#f3ecd9;padding:12px 16px;margin:18px 0;font-size:15px;}
   .insight .ilabel{letter-spacing:.2em;color:#8c5a2b;font-size:11px;display:block;margin-bottom:4px;text-transform:uppercase;}
   .todo{background:#ffe08a;padding:0 4px;border-radius:2px;font-size:.92em;}
-  .ednote{background:#eee9df;border:1px solid #d3c9b4;color:#5d5443;font-size:13.5px;padding:10px 14px;margin:18px 0;}
-  .ednote .elabel{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.15em;display:block;margin-bottom:4px;}
+  /* заметки редакции — выносятся на правое поле, полосу набора не занимают */
+  .ednote{position:absolute;left:100%;margin-left:26px;width:230px;box-sizing:border-box;background:#eee9df;border:1px solid #d3c9b4;border-left:3px solid #b3a589;color:#5d5443;font-size:12.5px;line-height:1.45;padding:8px 12px;}
+  .ednote .elabel{font-family:'Courier New',monospace;font-size:10.5px;letter-spacing:.15em;display:block;margin-bottom:4px;}
+  @media (max-width:1250px){
+    .ednote{position:static;width:auto;margin:18px 0;font-size:13.5px;padding:10px 14px;}
+  }
   .timeline{margin:0;padding:0;list-style:none;}
   .timeline li{margin:0 0 16px;padding-left:14px;border-left:2px solid #d8c9a8;}
   .timeline .tdate{font-weight:bold;color:#8c5a2b;display:block;font-size:15px;}
@@ -55,7 +59,7 @@
   · обычный текст с засечками — это текст книги;<br>
   · <b>пунктирные блоки</b> — плейсхолдеры иллюстраций: внутри описание, размер и готовый промпт для нейросети (на английском — большинство генераторов так понимают лучше);<br>
   · <b>жёлтые пометки ✎</b> — факты и формулировки, которые нужно проверить перед печатью;<br>
-  · <b>серые блоки «ДЛЯ РЕДАКЦИИ»</b> — служебные заметки, в книгу не идут.<br><br>
+  · <b>серые блоки «ДЛЯ РЕДАКЦИИ»</b> — служебные заметки на полях справа от страницы, в книгу не идут (на узком экране показываются внутри страницы).<br><br>
   Все промпты написаны по принципу «текст отдельно, картинка отдельно»: подписи, даты и номера добавляются вёрсткой, нейросеть текст не рисует.
 </div>
 
