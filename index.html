@@ -4,22 +4,25 @@
 <meta charset="UTF-8">
 <title>Кофе в Городе — черновик v0.1</title>
 <style>
+  /* Neucha — основной шрифт книги, самохостинг (офлайн, без зависимости от Google CDN) */
+  @font-face{font-family:'Neucha';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/neucha-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:'Neucha';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/neucha-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
   :root{--z:.72;} /* масштаб книги в развороте; поднимается на широких экранах */
-  body{background:#e7decb;color:#2a2118;font-family:Georgia,'Times New Roman',serif;line-height:1.55;margin:0;padding:24px 12px 80px;}
+  body{background:#e7decb;color:#2a2118;--font:'Neucha',Georgia,serif;--fscale:1.2;font-family:var(--font);line-height:1.55;margin:0;padding:24px 12px 80px;}
   .draft-banner{max-width:210mm;box-sizing:border-box;margin:0 auto 30px;background:#2a2118;color:#f1e8d6;padding:16px 22px;font-family:'Courier New',monospace;font-size:13px;border-radius:4px;}
   .draft-banner b{color:#ffd98a;}
   /* лист A4: 210×297 мм; обычный блочный поток, чтобы работало обтекание float-фигур;
      номер страницы прижат к низу абсолютом, нижний паддинг резервирует ему место */
-  .page{position:relative;width:210mm;min-height:297mm;box-sizing:border-box;margin:0 auto 36px;background:#e9c796;border:1px solid #d8c9a8;box-shadow:0 2px 8px rgba(60,40,10,.08);padding:18mm 16mm 22mm;}
+  .page{position:relative;width:210mm;min-height:297mm;box-sizing:border-box;margin:0 auto 36px;background:#fff;border:1px solid #d8c9a8;box-shadow:0 2px 8px rgba(60,40,10,.08);padding:18mm 16mm 22mm;}
   .page::after{content:"";display:block;clear:both;}
   .pagenum{position:absolute;left:16mm;right:16mm;bottom:9mm;text-align:center;color:#9b8a6b;font-size:12px;letter-spacing:.18em;border-top:1px solid #e3d6b8;padding-top:10px;}
-  .kicker{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#8c5a2b;margin:0 0 10px;}
-  h1{font-size:34px;line-height:1.18;margin:6px 0 4px;font-weight:normal;}
-  h2{font-size:26px;margin:4px 0 16px;font-weight:normal;line-height:1.2;}
-  h3{font-size:17px;margin:0 0 6px;}
-  .subtitle{font-style:italic;color:#6f6049;margin:0 0 22px;}
-  p{margin:0 0 14px;font-size:16.5px;}
-  .lead{font-size:18px;}
+  .kicker{font-size:calc(12px * var(--fscale));letter-spacing:.28em;text-transform:uppercase;color:#8c5a2b;margin:0 0 10px;}
+  h1{font-size:calc(34px * var(--fscale));line-height:1.18;margin:6px 0 4px;font-weight:normal;}
+  h2{font-size:calc(26px * var(--fscale));margin:4px 0 16px;font-weight:normal;line-height:1.2;}
+  h3{font-size:calc(17px * var(--fscale));margin:0 0 6px;}
+  .subtitle{font-style:italic;color:#6f6049;margin:0 0 22px;font-size:calc(18px * var(--fscale));}
+  p{margin:0 0 14px;font-size:calc(16.5px * var(--fscale));}
+  .lead{font-size:calc(18px * var(--fscale));}
   .orn{text-align:center;color:#8c5a2b;letter-spacing:.5em;margin:24px 0;}
   /* на странице — только пустая рамка-заглушка нужной пропорции; спецификация — на полях */
   .figure{border:2px dashed #b3935f;background:#f1e7cf;margin:20px 0;border-radius:3px;display:flex;align-items:center;justify-content:center;}
@@ -40,7 +43,7 @@
   .fnote .flabel{font-family:'Courier New',monospace;font-size:10.5px;letter-spacing:.1em;color:#7a5a2e;margin-bottom:6px;font-weight:bold;}
   .fnote .fmeta{font-size:11.5px;margin:0 0 6px;}
   .prompt{font-family:'Courier New',monospace;font-size:10px;background:#fffdf6;border:1px solid #d8c9a8;padding:6px 8px;margin-top:6px;white-space:pre-wrap;color:#3c3225;line-height:1.35;}
-  .insight{border-left:4px solid #8c5a2b;background:#f3ecd9;padding:12px 16px;margin:18px 0;font-size:15px;}
+  .insight{border-left:4px solid #8c5a2b;background:#f3ecd9;padding:12px 16px;margin:18px 0;font-size:calc(15px * var(--fscale));}
   .insight .ilabel{letter-spacing:.2em;color:#8c5a2b;font-size:11px;display:block;margin-bottom:4px;text-transform:uppercase;}
   /* проверяемый факт: <span class="check">фрагмент<span class="todo">✎ что проверить</span></span>
      на экране фрагмент подсвечен, пометка всплывает по ховеру; в печати — обычный текст */
@@ -58,19 +61,19 @@
   }
   .timeline{margin:0;padding:0;list-style:none;}
   .timeline li{margin:0 0 16px;padding-left:14px;border-left:2px solid #d8c9a8;}
-  .timeline .tdate{font-weight:bold;color:#8c5a2b;display:block;font-size:15px;}
+  .timeline .tdate{font-weight:bold;color:#8c5a2b;display:block;font-size:calc(15px * var(--fscale));}
   .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
   .card{border:1px solid #d8c9a8;background:#fffdf4;padding:14px 16px;}
-  .card p{font-size:14px;margin:0 0 6px;}
+  .card p{font-size:calc(14px * var(--fscale));margin:0 0 6px;}
   .route{list-style:none;padding:0;}
-  .route li{margin-bottom:19px;font-size:16px;}
+  .route li{margin-bottom:19px;font-size:calc(16px * var(--fscale));}
   .route .rnum{display:inline-block;width:22px;height:22px;border-radius:50%;background:#8c5a2b;color:#fff;text-align:center;line-height:22px;font-size:13px;margin-right:8px;}
   .stamps{display:flex;flex-wrap:wrap;gap:24px;margin:24px 0;justify-content:center;}
   .stamp{width:38mm;height:38mm;border:2px dashed #b3935f;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;color:#7a6a4d;padding:8px;box-sizing:border-box;background:#fffdf4;}
   .checklist{list-style:none;padding:0;}
-  .checklist li{margin-bottom:9px;font-size:15.5px;}
-  .quote{font-style:italic;border-left:3px solid #c9b487;margin:20px 0;padding:10px 20px;color:#4a3e2c;font-size:17.5px;line-height:1.6;}
-  .quote .qsrc{display:block;font-style:normal;font-size:13px;color:#8a7a5c;margin-top:6px;}
+  .checklist li{margin-bottom:9px;font-size:calc(15.5px * var(--fscale));}
+  .quote{font-style:italic;border-left:3px solid #c9b487;margin:20px 0;padding:10px 20px;color:#4a3e2c;font-size:calc(17.5px * var(--fscale));line-height:1.6;}
+  .quote .qsrc{display:block;font-style:normal;font-size:calc(13px * var(--fscale));color:#8a7a5c;margin-top:6px;}
   .bignums{display:flex;gap:16px;text-align:center;margin:18px 0;flex-wrap:wrap;}
   .bignums div{flex:1;min-width:150px;border:1px solid #d8c9a8;background:#fffdf4;padding:14px 10px;}
   .bignums .n{font-size:28px;color:#8c5a2b;display:block;}
@@ -97,7 +100,7 @@
   /* печать (File → Print): лист A4 без полей принтера, каждый .page — с нового листа */
   @page{size:A4;margin:0;}
   @media print{
-    body{background:#e9c796;margin:0;padding:0;}
+    body{background:#fff;margin:0;padding:0;}
     /* весь служебный текст (заметки на полях, ✎-пометки, номера рамок) не печатается —
        на листе остаётся только книжный макет с пустыми рамками под иллюстрации */
     .draft-banner,.ednote,.fnote,.todo,.fnum{display:none;}
