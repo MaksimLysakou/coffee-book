@@ -66,8 +66,8 @@
   .tl-fig{width:58mm;flex:none;margin:0;}
   /* остановка с картинкой слева от текста (зигзаг таймлайна) */
   .tl-left .tl-fig{order:-1;}
-  /* фото в карточке (межвоенные заведения, стр. 9): на всю ширину карточки */
-  .card .figure{margin:10px 0 2px;}
+  /* фото в карточке (межвоенные заведения, стр. 9): крупно слева, текст справа */
+  .card .figure{flex:none;width:100mm;margin:0;}
   /* спецификация иллюстрации (описание, размер, промпт) — заметка на полях */
   .fnote{position:absolute;left:100%;margin-left:26px;width:240px;box-sizing:border-box;background:#f6efdd;border:1px dashed #b3935f;color:#5d5443;font-size:11.5px;line-height:1.4;padding:8px 10px;border-radius:3px;z-index:4;}
   .fnote .flabel{font-family:'Courier New',monospace;font-size:10.5px;letter-spacing:.1em;color:#7a5a2e;margin-bottom:6px;font-weight:bold;}
@@ -91,9 +91,11 @@
   .timeline li{display:flex;gap:14px;align-items:flex-start;margin:0 0 8px;padding-left:14px;border-left:2px solid #d8c9a8;}
   .tl-body{flex:1;min-width:0;}
   .timeline .tdate{font-weight:normal;color:#8c5a2b;display:block;font-size:calc(17px * var(--fscale));letter-spacing:.04em;}
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
-  .card{border:1px solid #d8c9a8;background:#fffdf4;padding:12px 15px;}
-  .card p{font-size:calc(14.5px * var(--fscale));margin:0 0 6px;}
+  .cards{display:flex;flex-direction:column;gap:10px;margin:14px 0;}
+  .card{display:flex;gap:16px;align-items:center;border:1px solid #d8c9a8;background:#fffdf4;padding:10px 12px;}
+  .card-txt{flex:1;min-width:0;}
+  .card-txt h3{margin:0 0 4px;}
+  .card p{font-size:calc(15px * var(--fscale));margin:0;}
   .route{list-style:none;padding:0;margin:0;}
   .route li{margin-bottom:16px;font-size:calc(16.5px * var(--fscale));}
   .route .rnum{display:inline-block;width:24px;height:24px;border-radius:50%;background:#8c5a2b;color:#fff;text-align:center;line-height:24px;font-size:14px;margin-right:9px;}
@@ -378,35 +380,26 @@
 
 <!-- ===================== СТР. 9 ===================== -->
 <div class="page">
-  <h3>Куда ходили за кофе</h3>
   <div class="cards">
     <div class="card">
-      <h3>Кондитерская Котовского</h3>
-      <p>Любимое место интеллигенции: пончики с вишней и шоколад, который таял во рту.</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО · ТОГДА</span></div>
+      <div class="figure has-img" style="aspect-ratio:3/2"><img src="img/kotovskogo.png" alt="Интерьер кофейни Котовского, 1930-е"></div>
+      <div class="card-txt"><h3>Кондитерская Котовского</h3><p>Любимое место интеллигенции: пончики с вишней и шоколад, который таял во рту.</p></div>
     </div>
     <div class="card">
-      <h3>«Ориент»</h3>
-      <p>Бузярня-кондитерская: восточные сладости, кофе и буза.</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО · ТОГДА</span></div>
+      <div class="figure has-img" style="aspect-ratio:3/2"><img src="img/orient.png" alt="Витрина-цукерня «Ориент», 1930-е"></div>
+      <div class="card-txt"><h3>«Ориент»</h3><p>Бузярня-кондитерская: восточные сладости, кофе и буза.</p></div>
     </div>
     <div class="card">
-      <h3>«Стамбул»</h3>
-      <p>Имя — уже меню: кофе по-турецки, на горячем песке, с пряностями.</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО · ТОГДА</span></div>
+      <div class="figure has-img" style="aspect-ratio:3/2"><img src="img/shipovskogo.png" alt="Кондитерская Шиповского на углу, 1930-е"></div>
+      <div class="card-txt"><h3>Кондитерская Шиповского</h3><p>Вечный и, говорят, доброжелательный конкурент Котовского.</p></div>
     </div>
-    <div class="card">
-      <h3>Кондитерская Шиповского</h3>
-      <p>Вечный и, говорят, доброжелательный конкурент Котовского.</p>
-      <div class="figure" style="aspect-ratio:3/2"><span class="fnum">ФОТО · ТОГДА</span></div>
+    <div class="card card-note">
+      <div class="card-txt"><h3>«Стамбул»</h3><p>Имя — уже меню: кофе по-турецки, на горячем песке, с пряностями. <span class="check">Архивного фото пока нет<span class="todo">✎ найти фото «Стамбула» или нарисовать реконструкцию восточной кофейни.</span></span></p></div>
     </div>
   </div>
 
   <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ · СПИСОК НЕПОЛНЫЙ</span>
-  <span class="check">Адреса и «что там сейчас» пока неизвестны<span class="todo">✎ адреса, годы работы и текущее назначение помещений уточнить по прессе 1920–30-х и адресным книгам. Сверить написание фамилий.</span></span>. Фото — только архивные, к каждой карточке.</div>
-
-  <div class="insight"><span class="ilabel">Что такое буза</span>
-  Густой, чуть шипучий напиток из проса, почти без алкоголя. <span class="check">Скорее всего, его принесли литовские татары<span class="todo">✎ гипотеза: татары осели вокруг Гродно с конца XIV в., буза — их напиток, но прямого свидетельства бузы у местных татар в источниках нет. Подавать как вероятную версию.</span></span>. Встретите на фестивале — берите.</div>
+  <span class="check">Адреса и «что там сейчас» пока неизвестны<span class="todo">✎ адреса, годы работы и текущее назначение помещений уточнить по прессе 1920–30-х и адресным книгам. Сверить написание фамилий.</span></span>. Рисунки — по архивным фото.</div>
   <div class="pagenum">— стр. 9 —</div>
 </div>
 
