@@ -160,7 +160,8 @@
   /* ── ЧИСТЫЙ РЕЖИМ ──────────────────────────────────────────────
      На <body> стоит класс clean: весь черновой аппарат скрыт и книга на экране
      выглядит так же, как в печати. Чтобы вернуть заметки, карандаши и шапку
-     черновика — убрать класс clean у <body>, больше ничего править не нужно. */
+     черновика — открыть страницу с ?notes=true в адресе (класс снимет скрипт
+     сразу под тегом body) или убрать класс clean руками. */
   .clean .draft-banner,.clean .ednote,.clean .fnote,.clean .todo,.clean .fnum{display:none;}
   .clean .check,.clean .page.invert .check{background:none;border-bottom:none;cursor:auto;}
   /* Полей для заметок больше нет — в чистом режиме книга показывается крупнее.
@@ -189,6 +190,9 @@
 </style>
 </head>
 <body class="clean">
+<!-- Черновой переключатель: с ?notes=true в адресе класс clean снимается и
+     возвращаются заметки на полях, карандаши и шапка черновика. -->
+<script>if(new URLSearchParams(location.search).get("notes")==="true")document.body.classList.remove("clean");</script>
 
 <header class="draft-banner">
   <b>ЧЕРНОВИК v0.2 · «Кофе в Городе»</b> · рабочий файл для правок<br><br>
