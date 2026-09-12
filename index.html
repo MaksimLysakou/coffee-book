@@ -72,6 +72,19 @@
     font-size:calc(13px * var(--fscale));
     /* +0.7px к строке опускает цифру на треть пикселя: у Neucha цифры сидят выше середины кегля */
     line-height:calc(9mm + 0.7px);}
+  /* стр. 15: легенда карты — те же кружки и названия кофеен */
+  .map-legend{position:absolute;z-index:2;right:calc(var(--pad-x) - 10mm);bottom:14mm;width:67mm;box-sizing:border-box;
+    background:rgba(255,253,244,.93);border:1px solid #c9b487;padding:15px 17px 16px;
+    box-shadow:0 2px 9px rgba(60,40,10,.2);}
+  .map-legend .llabel{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:#8c5a2b;display:block;margin-bottom:12px;}
+  .map-legend ul{list-style:none;margin:0;padding:0;}
+  .map-legend li{display:flex;align-items:center;gap:10px;margin:0 0 8px;
+    font-size:calc(14.5px * var(--fscale));line-height:1.15;color:#3c3225;}
+  .map-legend li:last-child{margin:0;}
+  .map-legend .lnum{flex:none;box-sizing:border-box;width:6.5mm;height:6.5mm;border-radius:50%;
+    background:#8c5a2b;color:#fff;text-align:center;
+    font-size:calc(11.5px * var(--fscale));line-height:calc(6.5mm + 0.6px);}
   /* врезка «Фишка» на этих страницах — собственный контекст: встаёт рядом с фото, а не подъезжает под него */
   .cafe-det ~ .insight{overflow:hidden;}
   .fig-small{width:50%;margin-left:auto;margin-right:auto;}
@@ -550,11 +563,24 @@
   <div class="map-pin" style="left:74.21%;top:7.22%">6</div>
   <div class="map-pin" style="left:54.86%;top:48.27%">7</div>
   <div class="map-pin" style="left:68.71%;top:11.34%">8</div>
+  <div class="map-legend">
+    <span class="llabel">Кофе сегодня</span>
+    <ul>
+      <li><span class="lnum">1</span>«Джезва»</li>
+      <li><span class="lnum">2</span>«Доппио»</li>
+      <li><span class="lnum">3</span>«Соул Софе»</li>
+      <li><span class="lnum">4</span>«Наше Место»</li>
+      <li><span class="lnum">5</span>«Какао»</li>
+      <li><span class="lnum">6</span>«АВКавярня»</li>
+      <li><span class="lnum">7</span>«Сюзетт»</li>
+      <li><span class="lnum">8</span>«Эль Кофе»</li>
+    </ul>
+  </div>
   <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 15 · КАРТА СОВРЕМЕННЫХ КОФЕЕН (на всю страницу)</div>
     <p class="fmeta"><b>Как сделано:</b> схема улиц настоящая — снята с OpenStreetMap по реальным координатам восьми кофеен и стилизована под старый печатный план (бумага, тонкие линии, роза ветров). Исходный скриншот с точками лежит в <code>places-img/map_cafes_osm.png</code>, по нему дизайнер может перерисовать карту начисто.</p>
     <p class="fmeta"><b>Номера</b> стоят вёрсткой поверх картинки (класс <code>.map-pin</code>, координаты в процентах) — на самой картинке цифр нет и быть не должно. Номера совпадают со страницами кофеен (16–23) и штампами в паспорте.</p>
-    <p class="fmeta"><b>Открытый вопрос:</b> нужна ли на полосе легенда с названиями — иначе читатель узнаёт, где какая кофейня, только листая главу.</p>
+    <p class="fmeta"><b>Легенда</b> в правом нижнем углу — тоже вёрстка (<code>.map-legend</code>), не картинка. Если список кофеен меняется, править и её, и номера точек, и страницы 16–23.</p>
   </aside>
   <div class="pagenum">— стр. 15 —</div>
 </div>
