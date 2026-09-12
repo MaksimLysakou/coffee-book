@@ -2,6 +2,8 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<!-- мобильный вьюпорт = ширина листа A4 (210mm ≈ 794px) + поля body: телефон не переверстывает страницу, а пропорционально уменьшает её целиком -->
+<meta name="viewport" content="width=820">
 <title>Кофе в Городе — черновик v0.2</title>
 <style>
   /* Neucha — основной шрифт книги, самохостинг (офлайн, без зависимости от Google CDN) */
@@ -89,9 +91,10 @@
   /* заметки редакции — выносятся на поле, полосу набора не занимают */
   .ednote{position:absolute;left:100%;margin-left:26px;width:240px;box-sizing:border-box;background:#eee9df;border:1px solid #d3c9b4;border-left:3px solid #b3a589;color:#5d5443;font-size:12.5px;line-height:1.45;padding:8px 12px;z-index:4;}
   .ednote .elabel{font-family:'Courier New',monospace;font-size:10.5px;letter-spacing:.15em;display:block;margin-bottom:4px;}
-  /* узкий экран: для полей нет места — заметки в потоке */
+  /* узкий экран (планшет, телефон): для полей нет места — служебное скрываем целиком, лист A4 не меняется, его масштабирует viewport */
   @media (max-width:1080px){
-    .ednote,.fnote{position:static;width:auto;margin:18px 0;font-size:13px;padding:10px 14px;}
+    .ednote,.fnote,.todo{display:none;}
+    .check{background:none;border-bottom:none;cursor:auto;}
   }
   .timeline{margin:0;padding:0;list-style:none;}
   .timeline li{display:flex;gap:14px;align-items:flex-start;margin:0 0 8px;padding-left:14px;border-left:2px solid #d8c9a8;}
@@ -148,7 +151,7 @@
   · страницы — печатный макет: текст книги и пустые рамки на месте будущих иллюстраций (часть — full-bleed, во всю страницу);<br>
   · служебное вынесено на поля: <b>пунктирные заметки</b> — задания на иллюстрации с промптом (на английском); <b>серые блоки «ДЛЯ РЕДАКЦИИ»</b> в книгу не идут;<br>
   · <b>жёлтым</b> подсвечены факты на проверку — наведите курсор, всплывёт пометка ✎;<br>
-  · при печати (File → Print) поля не выводятся; на узком экране заметки показываются внутри страниц.
+  · при печати (File → Print) поля не выводятся; на узком экране (планшет, телефон) заметки и подсветка не показываются — только текст книги.
 </header>
 
 <!-- ===================== СТР. 0 · ОБЛОЖКА, ПЕРЕДНЯЯ ===================== -->
@@ -749,7 +752,7 @@
     document.querySelectorAll('.page').forEach(function(page){
       var notes=[].slice.call(page.querySelectorAll('.ednote,.fnote'));
       notes.forEach(function(n){n.style.top='';});
-      notes=notes.filter(function(n){return getComputedStyle(n).position==='absolute';});
+      notes=notes.filter(function(n){var cs=getComputedStyle(n);return cs.display!=='none'&&cs.position==='absolute';});
       if(!notes.length) return;
       var pz=parseFloat(getComputedStyle(page).zoom)||1;
       var pr=page.getBoundingClientRect();
