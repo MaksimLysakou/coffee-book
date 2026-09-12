@@ -63,6 +63,10 @@
   .cover-cap .subtitle{font-size:calc(20px * var(--fscale));}
   /* портрет с настоящим обтеканием текстом */
   .fig-right{float:right;margin:6px 0 14px 18px;}
+  /* стр. 16–23: крупная деталь-фото в карточке кофейни — текст и врезка обтекают её слева */
+  .cafe-det{float:right;width:78mm;aspect-ratio:4/5;margin:0 0 14px 16px;}
+  /* врезка «Фишка» на этих страницах — собственный контекст: встаёт рядом с фото, а не подъезжает под него */
+  .cafe-det ~ .insight{overflow:hidden;}
   .fig-small{width:50%;margin-left:auto;margin-right:auto;}
   /* миниатюра у пункта таймлайна: ряд [текст | картинка], без float — текст не ломается лесенкой */
   .tl-fig{width:58mm;flex:none;margin:0;}
@@ -540,114 +544,114 @@
 
 <!-- ===================== СТР. 16 · КОФЕЙНЯ 1 ===================== -->
 <div class="page">
-  <div class="hero" style="--h:130mm">
+  <div class="hero" style="--h:136mm">
     <div class="figure has-img"><img src="img/cafe1.png" alt="«Джезва» — фасад кофейни"></div>
     <div class="hero-cap"><p class="kicker">Кофе сегодня · 1 из 8</p><h2 style="margin:0;">«Джезва»</h2></div>
   </div>
-  <div class="figure fig-right" style="aspect-ratio:1/1;width:44mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <div class="figure cafe-det"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
   <p><b>Год:</b> 2019 · <b>Адрес:</b> ул. Советская, 5</p>
   <p><b>Что взять в первый раз:</b> кофе, сваренный в турке на песке</p>
   <p><b>Один факт:</b> «Джезва» — каноническое имя турки; владельцы взяли архаичное слово вместо привычного, чтобы, по их словам, восстановить историческую справедливость.</p>
-  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> Единственное место в городе, где кофе варят в джезве на раскалённом песке — весь процесс видно от стойки.</div>
+  <div class="insight"><span class="ilabel">Фишка</span> Единственное место в городе, где кофе варят в джезве на раскалённом песке — весь процесс видно от стойки.</div>
   <div class="ednote"><span class="elabel">ДЛЯ РЕДАКЦИИ</span>Годы, адреса и факты на стр. 16–23 собраны из открытых источников (, «Вечерний Гродно», Яндекс.Карты), сверка — сентябрь 2026. Данные «АВКавярни» — от заведения. Перед печатью подтвердить анкетой у каждой кофейни: адреса и часы меняются. Фото настоящие, не генерация. Если кофеен станет больше восьми — добавлять страницы парами (чтобы не сломать развороты).</div>
   <div class="pagenum">— стр. 16 —</div>
 </div>
 
 <!-- ===================== СТР. 17 · КОФЕЙНЯ 2 ===================== -->
 <div class="page">
-  <div class="hero" style="--h:130mm">
+  <div class="hero" style="--h:136mm">
     <div class="figure has-img"><img src="img/cafe2.png" alt="«Доппио» — фасад кофейни"></div>
     <div class="hero-cap"><p class="kicker">Кофе сегодня · 2 из 8</p><h2 style="margin:0;">«Доппио»</h2></div>
   </div>
-  <div class="figure fig-right" style="aspect-ratio:1/1;width:44mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <div class="figure cafe-det"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
   <p><b>Год:</b> 2020 · <b>Адрес:</b> ул. Замковая, 12а</p>
   <p><b>Что взять в первый раз:</b> завтрак — их подают весь день</p>
   <p><b>Один факт:</b> «Доппио» по-итальянски — двойной эспрессо: двойная порция молотого кофе на ту же чашку.</p>
-  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> Кофейня здорового питания: веганские и низкоуглеводные десерты, около пятнадцати позиций без лактозы.</div>
+  <div class="insight"><span class="ilabel">Фишка</span> Кофейня здорового питания: веганские и низкоуглеводные десерты, около пятнадцати позиций без лактозы.</div>
   <div class="pagenum">— стр. 17 —</div>
 </div>
 
 <!-- ===================== СТР. 18 · КОФЕЙНЯ 3 ===================== -->
 <div class="page">
-  <div class="hero" style="--h:130mm">
+  <div class="hero" style="--h:136mm">
     <div class="figure has-img"><img src="img/cafe3.png" alt="«Соул Софе» — фасад кофейни"></div>
     <div class="hero-cap"><p class="kicker">Кофе сегодня · 3 из 8</p><h2 style="margin:0;">«Соул Софе»</h2></div>
   </div>
-  <div class="figure fig-right" style="aspect-ratio:1/1;width:44mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <div class="figure cafe-det"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
   <p><b>Год:</b> 2015 · <b>Адрес:</b> ул. Замковая, 11</p>
   <p><b>Что взять в первый раз:</b> фильтр или эспрессо</p>
   <p><b>Один факт:</b> Прежнее имя кофейни — «Наша кава», и юридически она называется так до сих пор. В 2026 году этот товарный знак выкупила сеть Mak.by — и гродненское название стало официальным именем американо по всей стране.</p>
-  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> Первая в Гродно спешелти-кофейня: тут же продают зерно на вынос и держат редкий для города кофе без кофеина.</div>
+  <div class="insight"><span class="ilabel">Фишка</span> Первая в Гродно спешелти-кофейня: тут же продают зерно на вынос и держат редкий для города кофе без кофеина.</div>
   <div class="pagenum">— стр. 18 —</div>
 </div>
 
 <!-- ===================== СТР. 19 · КОФЕЙНЯ 4 ===================== -->
 <div class="page">
-  <div class="hero" style="--h:130mm">
+  <div class="hero" style="--h:136mm">
     <div class="figure has-img"><img src="img/cafe4.png" alt="«Наше Место» — фасад кофейни"></div>
     <div class="hero-cap"><p class="kicker">Кофе сегодня · 4 из 8</p><h2 style="margin:0;">«Наше Место»</h2></div>
   </div>
-  <div class="figure fig-right" style="aspect-ratio:1/1;width:44mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <div class="figure cafe-det"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
   <p><b>Год:</b> 2019 · <b>Адрес:</b> ул. Дарвина, 24</p>
   <p><b>Что взять в первый раз:</b> любой кофейный напиток из меню</p>
   <p><b>Один факт:</b> Название — из собственной истории основателей: Диана Рыбак и Андрей Маркевич приезжали на этот склон с пледами и кофе и звали его «наше место».</p>
-  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> Три столика на тринадцать гостей и вид на Неман: из окон разом видны оба замка, драмтеатр и Советская площадь, а в тёплую погоду гостей сажают с пледами прямо на склон.</div>
+  <div class="insight"><span class="ilabel">Фишка</span> Три столика на тринадцать гостей и вид на Неман: из окон разом видны оба замка, драмтеатр и Советская площадь, а в тёплую погоду гостей сажают с пледами прямо на склон.</div>
   <div class="pagenum">— стр. 19 —</div>
 </div>
 
 <!-- ===================== СТР. 20 · КОФЕЙНЯ 5 ===================== -->
 <div class="page">
-  <div class="hero" style="--h:130mm">
+  <div class="hero" style="--h:136mm">
     <div class="figure has-img"><img src="img/cafe5.png" alt="«Какао» — фасад кофейни"></div>
     <div class="hero-cap"><p class="kicker">Кофе сегодня · 5 из 8</p><h2 style="margin:0;">«Какао»</h2></div>
   </div>
-  <div class="figure fig-right" style="aspect-ratio:1/1;width:44mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <div class="figure cafe-det"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
   <p><b>Год:</b> 2019 · <b>Адрес:</b> ул. Советская, 6 (первая — ул. Будённого, 28)</p>
   <p><b>Что взять в первый раз:</b> какао или горячий шоколад</p>
   <p><b>Один факт:</b> Зал на Советской занимает бывшую скарбницу — казну доминиканского монастыря XVIII века; своды и кирпич-«пальчатка» оставили на виду.</p>
-  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> Кофейня выросла из шоколадной: горячий шоколад тут разливают по происхождению бобов — Перу, Доминикана, Эквадор, — как кофе по регионам.</div>
+  <div class="insight"><span class="ilabel">Фишка</span> Кофейня выросла из шоколадной: горячий шоколад тут разливают по происхождению бобов — Перу, Доминикана, Эквадор, — как кофе по регионам.</div>
   <div class="pagenum">— стр. 20 —</div>
 </div>
 
 <!-- ===================== СТР. 21 · КОФЕЙНЯ 6 ===================== -->
 <div class="page">
-  <div class="hero" style="--h:130mm">
+  <div class="hero" style="--h:136mm">
     <div class="figure has-img"><img src="img/cafe6.png" alt="«АВКавярня» — крыльцо кофейни на Советской"></div>
     <div class="hero-cap"><p class="kicker">Кофе сегодня · 6 из 8</p><h2 style="margin:0;">«АВКавярня»</h2></div>
   </div>
-  <div class="figure fig-right" style="aspect-ratio:1/1;width:44mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <div class="figure cafe-det"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
   <p><b>Год:</b> 2026 · <b>Адрес:</b> ул. Советская, 14</p>
   <p><b>Что взять в первый раз:</b> кофе Мицкевича и Чемровский торт (маковый)</p>
   <p><b>Один факт:</b> «АВ» — первые буквы имён основателей. А сама кофейня — продолжение новогрудской «Кавярни», тоже посвящённой Мицкевичу и историческому кофе.</p>
-  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> Исторически точный кофе по рецепту Адама Мицкевича — тот самый, что описан на страницах 4–5.</div>
+  <div class="insight"><span class="ilabel">Фишка</span> Исторически точный кофе по рецепту Адама Мицкевича — тот самый, что описан на страницах 4–5.</div>
   <div class="pagenum">— стр. 21 —</div>
 </div>
 
 <!-- ===================== СТР. 22 · КОФЕЙНЯ 7 ===================== -->
 <div class="page">
-  <div class="hero" style="--h:130mm">
+  <div class="hero" style="--h:136mm">
     <div class="figure has-img"><img src="img/cafe7.png" alt="«Сюзетт» — фасад кофейни"></div>
     <div class="hero-cap"><p class="kicker">Кофе сегодня · 7 из 8</p><h2 style="margin:0;">«Сюзетт»</h2></div>
   </div>
-  <div class="figure fig-right" style="aspect-ratio:1/1;width:44mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <div class="figure cafe-det"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
   <p><b>Год:</b> 2026 · <b>Адрес:</b> ул. Мостовая, 31а</p>
   <p><b>Что взять в первый раз:</b> крепы — солёные или сладкие</p>
   <p><b>Один факт:</b> Открылась 11 апреля 2026 года на месте кофейни Pink, самой розовой в городе. Название — от французского десерта «креп сюзетт» — блинчика в апельсиновом соусе, который поджигают перед подачей.</p>
-  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> Французская креперия: тонкие крепы вместо десертной витрины — солёные с прошутто и камамбером наравне со сладкими, и сидр в кофейной карте.</div>
+  <div class="insight"><span class="ilabel">Фишка</span> Французская креперия: тонкие крепы вместо десертной витрины — солёные с прошутто и камамбером наравне со сладкими, и сидр в кофейной карте.</div>
   <div class="pagenum">— стр. 22 —</div>
 </div>
 
 <!-- ===================== СТР. 23 · КОФЕЙНЯ 8 ===================== -->
 <div class="page">
-  <div class="hero" style="--h:130mm">
+  <div class="hero" style="--h:136mm">
     <div class="figure has-img"><img src="img/cafe8.png" alt="«Эль Кофе» — фасад кофейни"></div>
     <div class="hero-cap"><p class="kicker">Кофе сегодня · 8 из 8</p><h2 style="margin:0;">«Эль Кофе»</h2></div>
   </div>
-  <div class="figure fig-right" style="aspect-ratio:1/1;width:44mm"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
+  <div class="figure cafe-det"><span class="fnum">ФОТО · ДЕТАЛЬ</span></div>
   <p><b>Год:</b> 2023 · <b>Адрес:</b> ул. Доминиканская, 3</p>
   <p><b>Что взять в первый раз:</b> круассан размера L и завтрак</p>
   <p><b>Один факт:</b> «L» в названии — размер круассана: по словам владельцев, самые большие в городе. Имя они объясняют и созвучием: «Элькофе — элегантно, стильно, легко».</p>
-  <div class="insight" style="clear:both"><span class="ilabel">Фишка</span> Кофейня ранних пташек: открывается в 7:30, раньше всех в центре, а завтраки подаёт до вечера, а не до полудня.</div>
+  <div class="insight"><span class="ilabel">Фишка</span> Кофейня ранних пташек: открывается в 7:30, раньше всех в центре, а завтраки подаёт до вечера, а не до полудня.</div>
   <div class="pagenum">— стр. 23 —</div>
 </div>
 
