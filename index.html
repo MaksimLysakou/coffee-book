@@ -157,6 +157,24 @@
   }
   @media (min-width:2150px){:root{--z:.85;}}
   @media (min-width:2560px){:root{--z:1;}}
+  /* ── ЧИСТЫЙ РЕЖИМ ──────────────────────────────────────────────
+     На <body> стоит класс clean: весь черновой аппарат скрыт и книга на экране
+     выглядит так же, как в печати. Чтобы вернуть заметки, карандаши и шапку
+     черновика — убрать класс clean у <body>, больше ничего править не нужно. */
+  .clean .draft-banner,.clean .ednote,.clean .fnote,.clean .todo,.clean .fnum{display:none;}
+  .clean .check,.clean .page.invert .check{background:none;border-bottom:none;cursor:auto;}
+  /* Полей для заметок больше нет — в чистом режиме книга показывается крупнее.
+     До 1680px это одна страница во всю ширину окна, дальше — развороты по две. */
+  .clean .page{zoom:var(--z);}
+  body.clean{--z:1;}
+  @media (min-width:1080px){body.clean{--z:1.15;}}
+  @media (min-width:1280px){body.clean{--z:1.3;}}
+  @media (min-width:1480px){body.clean{--z:1.45;}}
+  @media (min-width:1680px){body.clean{--z:1;}}
+  @media (min-width:1900px){body.clean{--z:1.15;}}
+  @media (min-width:2200px){body.clean{--z:1.3;}}
+  @media (min-width:2560px){body.clean{--z:1.5;}}
+
   /* печать: лист A4 без полей принтера, каждый .page — с нового листа */
   @page{size:A4;margin:0;}
   @media print{
@@ -164,12 +182,13 @@
     .draft-banner,.ednote,.fnote,.todo,.fnum{display:none;}
     .check{background:none;border-bottom:none;cursor:auto;}
     /* min-height чуть меньше 297mm — запас на округление; --pad-* печатные, от них же считаются bleed-поля */
+    .clean .page{zoom:1;}
     .page{--pad-t:14mm;--pad-b:18mm;min-height:296.5mm;margin:0;border:none;box-shadow:none;break-after:page;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
     .page:last-child{break-after:auto;page-break-after:auto;}
   }
 </style>
 </head>
-<body>
+<body class="clean">
 
 <header class="draft-banner">
   <b>ЧЕРНОВИК v0.2 · «Кофе в Городе»</b> · рабочий файл для правок<br><br>
