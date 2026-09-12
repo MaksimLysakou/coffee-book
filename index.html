@@ -65,6 +65,13 @@
   .fig-right{float:right;margin:6px 0 14px 18px;}
   /* стр. 16–23: крупная деталь-фото в карточке кофейни — текст и врезка обтекают её слева */
   .cafe-det{float:right;width:78mm;aspect-ratio:4/5;margin:0 0 14px 16px;}
+  /* стр. 15: номера кофеен на карте кладёт вёрстка поверх картинки — нейросеть цифры не рисует */
+  .map-pin{position:absolute;z-index:2;box-sizing:border-box;transform:translate(-50%,-50%);
+    width:9mm;height:9mm;border-radius:50%;background:#8c5a2b;color:#fff;border:2px solid #fff;
+    box-shadow:0 1px 4px rgba(40,25,5,.45);text-align:center;
+    font-size:calc(13px * var(--fscale));
+    /* +0.7px к строке опускает цифру на треть пикселя: у Neucha цифры сидят выше середины кегля */
+    line-height:calc(9mm + 0.7px);}
   /* врезка «Фишка» на этих страницах — собственный контекст: встаёт рядом с фото, а не подъезжает под него */
   .cafe-det ~ .insight{overflow:hidden;}
   .fig-small{width:50%;margin-left:auto;margin-right:auto;}
@@ -534,10 +541,20 @@
 
 <!-- ===================== СТР. 15 · КАРТА КОФЕЕН ===================== -->
 <div class="page">
-  <div class="figure full"><span class="fnum">ИЛЛ. 15 · КАРТА КОФЕЕН</span></div>
+  <div class="figure full has-img"><img src="img/15-map.png" alt="Стилизованная карта центра Гродно с точками кофеен"></div>
+  <div class="map-pin" style="left:68.64%;top:21.98%">1</div>
+  <div class="map-pin" style="left:43.43%;top:37.03%">2</div>
+  <div class="map-pin" style="left:41.07%;top:32.66%">3</div>
+  <div class="map-pin" style="left:25.14%;top:91.42%">4</div>
+  <div class="map-pin" style="left:67.07%;top:18.06%">5</div>
+  <div class="map-pin" style="left:74.21%;top:7.22%">6</div>
+  <div class="map-pin" style="left:54.86%;top:48.27%">7</div>
+  <div class="map-pin" style="left:68.71%;top:11.34%">8</div>
   <aside class="fnote">
     <div class="flabel">🖼 ИЛЛ. 15 · КАРТА СОВРЕМЕННЫХ КОФЕЕН (на всю страницу)</div>
-    <p class="fmeta"><b>Как делаем:</b> как карту маршрута (ИЛЛ. 14) — та же стилизованная схема улиц, дизайнер ставит номера кофеен 1–8 вёрсткой. Номера = страницам кофеен (16–23) и штампам в паспорте. Картуш и розу ветров переиспользуем.</p>
+    <p class="fmeta"><b>Как сделано:</b> схема улиц настоящая — снята с OpenStreetMap по реальным координатам восьми кофеен и стилизована под старый печатный план (бумага, тонкие линии, роза ветров). Исходный скриншот с точками лежит в <code>places-img/map_cafes_osm.png</code>, по нему дизайнер может перерисовать карту начисто.</p>
+    <p class="fmeta"><b>Номера</b> стоят вёрсткой поверх картинки (класс <code>.map-pin</code>, координаты в процентах) — на самой картинке цифр нет и быть не должно. Номера совпадают со страницами кофеен (16–23) и штампами в паспорте.</p>
+    <p class="fmeta"><b>Открытый вопрос:</b> нужна ли на полосе легенда с названиями — иначе читатель узнаёт, где какая кофейня, только листая главу.</p>
   </aside>
   <div class="pagenum">— стр. 15 —</div>
 </div>
